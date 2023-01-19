@@ -1,5 +1,5 @@
 import './App.css';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -13,11 +13,6 @@ import React from 'react';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User>();
-
-  useEffect(()=>{
-    if(currentUser !== undefined)
-      console.log(currentUser.email);
-  }, [currentUser])
   
   return (
     <Router>
