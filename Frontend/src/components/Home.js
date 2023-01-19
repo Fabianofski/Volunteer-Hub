@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-function Home({setIsCookieAnswered}) {
+function Home() {
   return (
     <h1>HOME</h1>
   );

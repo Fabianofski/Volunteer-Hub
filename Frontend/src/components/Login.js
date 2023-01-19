@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-function Login({setIsCookieAnswered}) {
+function Login() {
   return (
     <h1>LOGIN</h1>
   );

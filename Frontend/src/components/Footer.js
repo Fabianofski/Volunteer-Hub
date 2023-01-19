@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-function Footer({setIsCookieAnswered}) {
+function Footer() {
   return (
     <div className="footer">
       <a href="/about">About</a>
