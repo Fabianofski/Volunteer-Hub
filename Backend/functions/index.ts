@@ -17,7 +17,7 @@ app.get("/api/profileInformation", async (req:Request<{uid: string}>, res:Respon
   const uid = req.query.uid;
   res.json({
     uid: uid,
-    "firstname": "Daniel",
+    firstname: "Daniel",
     lastname: "Smith",
     dateOfBirth: "05.12.2000",
     email: "daniel.smith@gmail.com",
