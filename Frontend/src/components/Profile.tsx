@@ -7,6 +7,7 @@ function Profile() {
   
   return (
     <h1>Profile {uid}</h1>
+   
   );
 }
 
