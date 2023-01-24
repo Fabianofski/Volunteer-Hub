@@ -2,7 +2,7 @@ import React from "react";
 import "../App.css";
 
 function Footer() {
-  return (
+    return (
     <div className="footer">
       <a href="/about">About</a>
       <a href="/privacy-policy">Privacy Policy</a>
