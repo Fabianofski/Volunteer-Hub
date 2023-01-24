@@ -1,33 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase";
 import {useNavigate} from "react-router-dom";
-import {User} from "../../model/User";
+import InputField from "./InputField";
 
-type Props = {
-  currentUser: User | undefined,
-  setCurrentUser: React.Dispatch<User>
-}
-
-function SignIn({currentUser, setCurrentUser}: Props){
+function SignIn(){
   const navigate = useNavigate();
-  useEffect(() =>
-  {
-    if (currentUser !== undefined)
-      navigate("/")
-  }, [currentUser, navigate]);
-  
+  if (auth.currentUser !== null) navigate("/");
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  
+
   const onSubmit = async (e : React.FormEvent) => {
     e.preventDefault()
     
     await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUser(new User(user.uid, user.email, 13566, "Berlin", "street", 56));
-        console.log(user);
+      .then(() => {
+        console.log(auth.currentUser);
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -38,30 +28,8 @@ function SignIn({currentUser, setCurrentUser}: Props){
   return(
     <div>
       <form>
-        <div>
-          <label htmlFor="email-address">
-            Email address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email address"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
-          />
-        </div>
+        <InputField value={email} setValue={setEmail} type={"email"} placeholder={"Email address"}/>
+        <InputField value={password} setValue={setPassword} type={"password"} placeholder={"Password"}/>
         <button
           type="submit"
           onClick={onSubmit}
