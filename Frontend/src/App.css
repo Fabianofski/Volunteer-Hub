@@ -40,12 +40,19 @@
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
 }
-.nav :hover {
-    color: black;
-}
+    .logo:active {
+        background: linear-gradient(to left, #FDA085, #F6D365 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+    }
 .nav-right {
 
     float: right;
+}
+.nav-right :hover {
+    color: black;
 }
  .footer {
     width: 100%;
