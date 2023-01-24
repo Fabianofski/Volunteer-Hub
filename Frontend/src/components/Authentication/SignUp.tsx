@@ -1,21 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase";
 import {useNavigate} from "react-router-dom";
-import {User} from "../../model/User";
 import InputField from "./InputField";
 
-type Props = {
-  currentUser: User | undefined,
-}
-
-function SignUp({currentUser}:Props){
+function SignUp(){
   const navigate = useNavigate();
-  useEffect(() =>
-  {
-    if (currentUser !== undefined)
-      navigate("/")
-  }, [currentUser, navigate]);
+  if (auth.currentUser !== null) navigate("/");
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('');
@@ -33,7 +24,11 @@ function SignUp({currentUser}:Props){
         console.log(user);
         fetch(`api/signUp?uid=${user.uid}&email=${email}&firstname=${firstname}&lastname=${lastname}&telephone=${telephone}&dateOfBirth=${dateOfBirth}`, {method: "POST"})
           .then(response  => response.json())
-          .then(data => console.log(data));
+          .then(() =>
+            {
+              console.log(auth.currentUser);
+              navigate("/");
+            });
       })
       .catch((error) => {
         const errorCode = error.code;

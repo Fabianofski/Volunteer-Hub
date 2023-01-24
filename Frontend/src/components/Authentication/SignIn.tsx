@@ -1,23 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase";
 import {useNavigate} from "react-router-dom";
-import {User} from "../../model/User";
 import InputField from "./InputField";
 
-type Props = {
-  currentUser: User | undefined,
-  setCurrentUser: React.Dispatch<User>
-}
-
-function SignIn({currentUser, setCurrentUser}: Props){
+function SignIn(){
   const navigate = useNavigate();
-  useEffect(() =>
-  {
-    if (currentUser !== undefined)
-      navigate("/")
-  }, [currentUser, navigate]);
-  
+  if (auth.currentUser !== null) navigate("/");
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -25,10 +15,9 @@ function SignIn({currentUser, setCurrentUser}: Props){
     e.preventDefault()
     
     await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUser(new User(user.uid, user.email, 13566, "Berlin", "street", 56));
-        console.log(user);
+      .then(() => {
+        console.log(auth.currentUser);
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
