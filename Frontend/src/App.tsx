@@ -1,4 +1,5 @@
 import './App.css';
+import {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -7,30 +8,23 @@ import Profile from "./components/Profile";
 import Event from "./components/Event";
 import SignUp from "./components/Authentication/SignUp";
 import SignIn from "./components/Authentication/SignIn";
-import React, {useState} from 'react';
-import {auth} from "./firebase";
+import {User} from "./model/User";
+import React from 'react';
 
 function App() {
-  const [currentUID, setCurrentUID] = useState<string>("");
-  auth.onAuthStateChanged(function(user) {
-    if (user) {
-      setCurrentUID(user.uid);
-    } else {
-      setCurrentUID("");
-    }
-  });
-
+  const [currentUser, setCurrentUser] = useState<User>();
+  
   return (
     <Router>
       <div className="App">
-        <Nav currentUID={currentUID}/>
+        <Nav />
         <div className="Router">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/event/:eventId" element={<Event />} />
             <Route path="/profile/:uid" element={<Profile />} />
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<SignIn currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+            <Route path="/signup" element={<SignUp currentUser={currentUser} />} />
           </Routes>
         </div>
         <Footer />
