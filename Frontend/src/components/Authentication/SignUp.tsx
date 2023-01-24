@@ -1,24 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase";
 import {useNavigate} from "react-router-dom";
-import {User} from "../../model/User";
+import InputField from "./InputField";
 
-type Props = {
-  currentUser: User | undefined,
-}
-
-function SignUp({currentUser}:Props){
+function SignUp(){
   const navigate = useNavigate();
-  useEffect(() =>
-  {
-    if (currentUser !== undefined)
-      navigate("/")
-  }, [currentUser, navigate]);
+  if (auth.currentUser !== null) navigate("/");
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('');
-  
+  const [firstname, setFirstname] = useState<string>('');
+  const [lastname, setLastname] = useState<string>('');
+  const [telephone, setTelephone] = useState<string>('');
+  const [dateOfBirth, setDateOfBirth] = useState<Date>();
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -26,6 +22,13 @@ function SignUp({currentUser}:Props){
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        fetch(`api/signUp?uid=${user.uid}&email=${email}&firstname=${firstname}&lastname=${lastname}&telephone=${telephone}&dateOfBirth=${dateOfBirth}`, {method: "POST"})
+          .then(response  => response.json())
+          .then(() =>
+            {
+              console.log(auth.currentUser);
+              navigate("/");
+            });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -36,30 +39,12 @@ function SignUp({currentUser}:Props){
   return(
     <div>
       <form>
-        <div>
-          <label htmlFor="email-address">
-            Email address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email address"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
-          />
-        </div>
+        <InputField value={email} setValue={setEmail} type={"email"} placeholder={"Email address"}/>
+        <InputField value={password} setValue={setPassword} type={"password"} placeholder={"Password"}/>
+        <InputField value={firstname} setValue={setFirstname} type={""} placeholder={"First name"}/>
+        <InputField value={lastname} setValue={setLastname} type={""} placeholder={"Last name"}/>
+        <InputField value={telephone} setValue={setTelephone} type={"tel"} placeholder={"Telephone"}/>
+        <InputField value={dateOfBirth} setValue={setDateOfBirth} type={"date"} placeholder={"Date of birth"}/>
         <button
           type="submit"
           onClick={onSubmit}
