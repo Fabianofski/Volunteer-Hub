@@ -1,22 +1,29 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
+import "./InputField.css";
 
 type Props = {
-  value : any,
-  setValue : React.Dispatch<any>,
-  type : string,
-  placeholder : string,
-}
+  value: any;
+  setValue: React.Dispatch<any>;
+  type: string;
+  placeholder: string;
+  isInputValid: Function;
+};
 
-function InputField ({value, setValue, type, placeholder} : Props) {
-  return(
+function InputField({ value, setValue, type, placeholder, isInputValid }: Props) {
+  const [valid, setValid] = useState(false);
+  const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setValid(isInputValid(e.target.value));
+  };
+
+  return (
     <div>
-      <label>
-        {placeholder}
-      </label>
+      <label>{placeholder}</label>
       <input
+        className={!valid ? "invalid" : "valid"}
         type={type}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={valueChanged}
         required
         placeholder={placeholder}
       />
