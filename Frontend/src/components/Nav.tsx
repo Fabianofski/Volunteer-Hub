@@ -1,6 +1,7 @@
 
 import React from "react";
 import "../App.css";
+import "../NavBar.css";
 import {auth} from "../firebase";
 
 function Nav({ currentUID }: { currentUID: string }) {
