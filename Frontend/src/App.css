@@ -1,6 +1,9 @@
 :root {
     --primary-color: #F0FFFF;
     --background-color: #F5F5F5;
+    --orange-color:#FDA085;
+    --yellow-color:#F6D365;
+    --text-color:#525252;
 }
 
 .App {
