@@ -26,6 +26,7 @@
 .logo {
     font-size: x-large;
     flex-grow:0.8;
+    padding-left: 5%;
     text-align: left;
     background: linear-gradient(to right, var(--orange-color), var(--yellow-color)100%);
     -webkit-background-clip: text;
@@ -34,12 +35,12 @@
     -moz-text-fill-color: transparent;
 }
 .logo a:active {
-        background: linear-gradient(to right, var(--orange-color), var(--yellow-color)100%);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        -moz-text-fill-color: transparent;
-    }
+    background: linear-gradient(to right, var(--orange-color), var(--yellow-color)100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
  .footer {
     width: 100%;
     height: 3rem;
@@ -52,19 +53,19 @@
 }
     /* unvisited link */
 .nav a:link, .nav a:visited {
-        color: var(--text-color);
-    }
+    color: var(--text-color);
+}
 
     /* mouse over link */
 .nav a:hover {
-        color: black;
-    }
+    color: black;
+}
 
     /* selected link */
 .nav a:active {
-        color: var(--text-color);
-        background: linear-gradient(to left, var(--orange-color), var(--yellow-color) 100%);
-        background-position: 0 100%;
-        background-size: 100% 3px;
-        background-repeat: repeat-x;
-    }
+    color: var(--text-color);
+    background: linear-gradient(to left, var(--orange-color), var(--yellow-color) 100%);
+    background-position: 0 100%;
+    background-size: 100% 3px;
+    background-repeat: repeat-x;
+}
