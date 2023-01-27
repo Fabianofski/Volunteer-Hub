@@ -53,7 +53,7 @@ function SignUp() {
   };
   return (
     <div>
-      <form className={"input-form"}>
+      <form>
         <InputField
           value={email}
           setValue={setEmail}
