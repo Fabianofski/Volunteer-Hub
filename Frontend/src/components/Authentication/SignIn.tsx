@@ -42,7 +42,7 @@ function SignIn() {
           setValue={setEmail}
           type={"email"}
           placeholder={"Email address"}
-          isInputValid={inputValidation.inputIsNotEmpty}
+          isInputValid={inputValidation.emailIsValid}
         />
         <InputField
           value={password}

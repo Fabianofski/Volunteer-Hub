@@ -13,32 +13,26 @@ async function createUser(
   telephone: string,
   dateOfBirth: Date | undefined
 ) {
-  await createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
-      const data = {
-        uid: user.uid,
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        telephone: telephone,
-        dateOfBirth: dateOfBirth
-      };
+  await createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
+    const user = userCredential.user;
+    console.log(user);
+    const data = {
+      uid: user.uid,
+      email: email,
+      firstname: firstname,
+      lastname: lastname,
+      telephone: telephone,
+      dateOfBirth: dateOfBirth
+    };
 
-      await fetch("api/signUp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+    await fetch("api/signUp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     });
+  });
 }
 
 function SignUp() {
@@ -58,11 +52,14 @@ function SignUp() {
     setAllInputsValid(invalidForm === null);
   }, [email, password, firstname, lastname, telephone, dateOfBirth]);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    await createUser(email, password, firstname, lastname, telephone, dateOfBirth);
-    // .then(() => navigate("/"))
-    // .catch((e) => alert(e));
+    createUser(email, password, firstname, lastname, telephone, dateOfBirth).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      alert(errorCode + " " + errorMessage);
+    });
   };
   return (
     <div>
