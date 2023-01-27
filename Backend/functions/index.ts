@@ -31,6 +31,27 @@ app.get(
   }
 );
 
+app.get(
+  "/api/eventInformation",
+  async (req: Request<{ eventId: string }>, res: Response) => {
+    const eventId = req.query.eventId;
+    res.json({
+      eventId: eventId,
+      eventName: "Floorball Turnier",
+      organizer: {
+        uid: "534jkkl",
+        name: "Peter Klaus",
+      },
+      date: "02.03.2023",
+      location: "Berlin",
+      about:
+        "Am 02.03.2023 findet in Berlin ein Floorball-Turnier statt. Erlebe spannende Spiele und unterstütze die Teilnehmer bei ihrem Kampf um den ersten Platz. Treffe Gleichgesinnte und genieße die Atmosphäre des Turniers. Komm vorbei und sei Teil des Floorball-Erlebnisses in Berlin.",
+      banner:
+        "https://majers-weinscheuer.de/wp-content/uploads/2021/01/Mathaisemarkt-at-home-majers-weinscheuer-schriesheim.jpg",
+    });
+  }
+);
+
 app.post(
   "/api/signUp/",
   jsonParser,
