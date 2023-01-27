@@ -14,13 +14,25 @@ async function createUser(
   dateOfBirth: Date | undefined
 ) {
   await createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       const user = userCredential.user;
       console.log(user);
-      fetch(
-        `api/signUp?uid=${user.uid}&email=${email}&firstname=${firstname}&lastname=${lastname}&telephone=${telephone}&dateOfBirth=${dateOfBirth}`,
-        { method: "POST" }
-      );
+      const data = {
+        uid: user.uid,
+        email: email,
+        firstname: firstname,
+        lastname: lastname,
+        telephone: telephone,
+        dateOfBirth: dateOfBirth
+      };
+
+      await fetch("api/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -49,7 +61,8 @@ function SignUp() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await createUser(email, password, firstname, lastname, telephone, dateOfBirth);
-    navigate("/");
+    // .then(() => navigate("/"))
+    // .catch((e) => alert(e));
   };
   return (
     <div>
