@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,12 @@ function SignIn() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [allInputsValid, setAllInputsValid] = useState(false);
+  useEffect(() => {
+    const invalidForm = document.querySelector(".invalid");
+    setAllInputsValid(invalidForm === null);
+  }, [email, password]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +51,7 @@ function SignIn() {
           placeholder={"Password"}
           isInputValid={inputValidation.inputIsNotEmpty}
         />
-        <button type="submit" onClick={onSubmit}>
+        <button type="submit" onClick={onSubmit} disabled={!allInputsValid}>
           Sign in
         </button>
       </form>

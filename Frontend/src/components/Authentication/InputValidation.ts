@@ -1,5 +1,3 @@
-import firebase, { auth } from "../../firebase";
-
 export class InputValidation {
   inputIsValid(): boolean {
     return true;
@@ -17,7 +15,7 @@ export class InputValidation {
 
   telephoneIsValid(input: string): boolean {
     console.log(input);
-    return true;
+    return input !== "";
   }
 
   dateOfBirthIsValid(input: string): boolean {
@@ -27,6 +25,6 @@ export class InputValidation {
 
   inputIsNotEmpty(input: string): boolean {
     console.log(input);
-    return input != "";
+    return input !== "";
   }
 }
