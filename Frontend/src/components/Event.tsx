@@ -18,16 +18,18 @@ interface EventData{
 }
 
  function Event() {
-  <Route path="/event/:eventId" element={<Event />} />
   const { eventId } = useParams();
   const [EventData, setEventData] = useState<EventData>();
 
-  fetch(`/api/eventInformation?eventId=${eventId}`)
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        setEventData(data);
-      });
+  useEffect(() => {
+    fetch(`/api/eventInformation?eventId=${eventId}`)
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+          setEventData(data);
+        });
+  }, [eventId]);
+
   return (
     <div className="eventpage">
       <div className="eventBanner">
