@@ -1,0 +1,26 @@
+.eventpage{
+border-radius: 10px ;
+border-color: black;
+width: 60%;
+height: auto;
+background-color: var(--text-color);
+display: flex;
+flex-direction: column;
+gap: 10px;
+overflow: hidden;
+}
+.eventBanner
+{
+    width: auto;
+    height: 250px;
+    overflow: hidden;
+}
+.eventBanner img{
+    object-fit: cover;
+}
+.eventText{
+    color: aliceblue;
+    font-size: 1.5em;
+    font-family: 'Lato',sans-serif ;
+    font-weight: 400;
+}
