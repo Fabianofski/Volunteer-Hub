@@ -31,15 +31,22 @@ interface EventData{
   }, [eventId]);
 
   return (
+    <div className="seite">
     <div className="eventpage">
       <div className="eventBanner">
-      <img src={"https://majers-weinscheuer.de/wp-content/uploads/2021/01/Mathaisemarkt-at-home-majers-weinscheuer-schriesheim.jpg"}alt="banner"/>
+      <img src={EventData?.banner}alt="banner"/>
       </div>
-      <div className="eventText">
-        {EventData?.eventName}
-        ewfhbiakcvuwqiek
+      <div className="eventDescription">
+       <h1> {EventData?.eventName}</h1>
+        <h2>{EventData?.date}</h2>
+      
       </div>
-    </div>
+      <h1>{EventData?.about}</h1>
+       </div>
+      <div className="participate">
+       <h2>Teilnehmen</h2> 
+      </div>
+      </div>
   );
 }
 
