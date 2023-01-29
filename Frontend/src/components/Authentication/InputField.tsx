@@ -2,15 +2,16 @@ import React, { ChangeEvent, useState } from "react";
 import "./InputField.css";
 
 type Props = {
+  title?: String;
   value: any;
   setValue: React.Dispatch<any>;
   type: string;
   placeholder: string;
   isInputValid: Function;
-  title?: string;
+  tooltip?: string;
 };
 
-function InputField({ value, setValue, type, placeholder, isInputValid, title }: Props) {
+function InputField({ title, value, setValue, type, placeholder, isInputValid, tooltip }: Props) {
   const [valid, setValid] = useState(false);
   const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -19,14 +20,14 @@ function InputField({ value, setValue, type, placeholder, isInputValid, title }:
 
   return (
     <div>
-      <label className="title">{placeholder}</label>
+      <label className="title">{title || placeholder}</label>
       <input
         className={!valid ? "invalid" : "valid"}
         type={type}
         value={value}
         onChange={valueChanged}
         required
-        title={title || ""}
+        title={tooltip || ""}
         placeholder={placeholder}
       />
     </div>

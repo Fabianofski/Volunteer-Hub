@@ -36,25 +36,27 @@ function SignIn() {
       });
   };
   return (
-    <div>
+    <div className="signInPage">
       <form>
         <InputField
+          title="Email"
           value={email}
           setValue={setEmail}
           type={"email"}
-          placeholder={"Email address"}
-          title="Please enter your email adress"
+          placeholder="Enter your email"
+          tooltip="Enter your email (email@example.com)"
           isInputValid={inputValidation.emailIsValid}
         />
         <InputField
+          title="Password"
           value={password}
           setValue={setPassword}
           type={"password"}
-          placeholder={"Password"}
-          title="Please enter your password. It should contain at least 3 characters."
+          placeholder={"Enter your password"}
+          tooltip={"Enter your password. \nIt should contain at least 3 characters."}
           isInputValid={inputValidation.inputIsNotEmpty}
         />
-        <button className="SignIn" type="submit" onClick={onSubmit} disabled={!allInputsValid} >
+        <button type="submit" onClick={onSubmit} disabled={!allInputsValid} title="Please fill in all the required fields">
           Sign in
         </button>
       </form>
