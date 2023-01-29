@@ -53,7 +53,7 @@ function SignIn() {
           setValue={setPassword}
           type={"password"}
           placeholder={"Enter your password"}
-          tooltip={"Enter your password. \nIt should contain at least 3 characters."}
+          tooltip={"Enter your password. \nIt should contain at least 3 characters."} // TODO!! Was muss es beinhalten`?
           isInputValid={inputValidation.inputIsNotEmpty}
         />
         <button type="submit" onClick={onSubmit} disabled={!allInputsValid} title="Please fill in all the required fields">
