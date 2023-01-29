@@ -1,0 +1,11 @@
+button {
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    border-radius: 10px;
+    border: 1px solid #525252;
+}
+
+button:disabled {
+    border: 1px solid #bdbcbc;
+}

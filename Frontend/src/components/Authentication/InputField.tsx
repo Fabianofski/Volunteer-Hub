@@ -7,9 +7,10 @@ type Props = {
   type: string;
   placeholder: string;
   isInputValid: Function;
+  title?: string;
 };
 
-function InputField({ value, setValue, type, placeholder, isInputValid }: Props) {
+function InputField({ value, setValue, type, placeholder, isInputValid, title }: Props) {
   const [valid, setValid] = useState(false);
   const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -18,13 +19,14 @@ function InputField({ value, setValue, type, placeholder, isInputValid }: Props)
 
   return (
     <div>
-      <label>{placeholder}</label>
+      <label className="title">{placeholder}</label>
       <input
         className={!valid ? "invalid" : "valid"}
         type={type}
         value={value}
         onChange={valueChanged}
         required
+        title={title || ""}
         placeholder={placeholder}
       />
     </div>

@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { InputValidation } from "./InputValidation";
+import "./SignIn.css"
 
 function SignIn() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function SignIn() {
           setValue={setEmail}
           type={"email"}
           placeholder={"Email address"}
+          title="Please enter your email adress"
           isInputValid={inputValidation.emailIsValid}
         />
         <InputField
@@ -49,9 +51,10 @@ function SignIn() {
           setValue={setPassword}
           type={"password"}
           placeholder={"Password"}
+          title="Please enter your password. It should contain at least 3 characters."
           isInputValid={inputValidation.inputIsNotEmpty}
         />
-        <button type="submit" onClick={onSubmit} disabled={!allInputsValid}>
+        <button className="SignIn" type="submit" onClick={onSubmit} disabled={!allInputsValid} >
           Sign in
         </button>
       </form>
