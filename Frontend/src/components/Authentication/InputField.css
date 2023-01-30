@@ -1,3 +1,5 @@
+
+
 .invalid{
     background-color: red;
 }
@@ -10,17 +12,29 @@
     background-color: rgb(255, 255, 255);
     color: #525252;
 
-    width: calc(100% - 10px);
-    height: 30px;
+    width: calc(100% - 12px);
+    height: 40px;
 
-    margin: 5px 0 13px 0;
+    margin: 5px 0 23px 0;
     padding: 0;
     padding-left: 10px;
 
-    border-radius: 20px;
-    border: 2px solid #525252;
+    border-radius: 3px;
+    border: 1px solid #b2b2b2;
+
+    font-size: 1rem;
 }
 
-.title {
+.valid:focus, .invalid:focus {
+    outline-color: #525252;
+}
+
+/* .title {
     margin-top: 10px;
+} */
+
+label {
+    float: left;
+    font-weight:bold;
+    font-size: 1.2rem;
 }
