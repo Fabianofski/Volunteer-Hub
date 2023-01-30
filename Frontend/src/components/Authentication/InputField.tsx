@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import "./InputField.css";
+import { Validation } from "./InputValidation";
 
 type Props = {
   value: any;
@@ -12,9 +13,13 @@ type Props = {
 
 function InputField({ value, setValue, type, placeholder, isInputValid, title }: Props) {
   const [valid, setValid] = useState(false);
+  const [info, setInfo] = useState<string[]>([]);
+
   const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    setValid(isInputValid(e.target.value));
+    const validation: Validation = isInputValid(e.target.value);
+    setValid(validation.valid);
+    setInfo(validation.info);
   };
 
   return (
@@ -29,6 +34,9 @@ function InputField({ value, setValue, type, placeholder, isInputValid, title }:
         title={title || ""}
         placeholder={placeholder}
       />
+      {info.map((info) => {
+        return <p>{info}</p>;
+      })}
     </div>
   );
 }
