@@ -21,6 +21,7 @@ function InputField({ title, value, setValue, type, placeholder, isInputValid, t
     setValue(input);
     setInfo(validation.info);
     if (input.length >= 2) setClassName(validation.valid ? "valid" : "invalid");
+    else if(className !== "unset") setClassName("invalid");
   };
   useEffect(() => valueChanged(""), []);
 
