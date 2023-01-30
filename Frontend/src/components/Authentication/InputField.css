@@ -1,32 +1,30 @@
+.inputField {
+  background-color: rgb(255, 255, 255);
+  color: #525252;
 
+  width: calc(100% - 12px);
+  height: 40px;
 
-.invalid{
-    background-color: red;
+  margin: 23px 0 0 0;
+  padding: 0 0 0 10px;
+
+  border-radius: 3px;
+  border: 1px solid #b2b2b2;
+  transition: border-bottom-color 0.3s ease-in;
+
+  font-size: 1rem;
+}
+
+.invalid {
+  border-bottom: 3px solid red;
 }
 
 .valid {
-    background-color: green;
+  border-bottom: 3px solid green;
 }
 
-.valid, .invalid {
-    background-color: rgb(255, 255, 255);
-    color: #525252;
-
-    width: calc(100% - 12px);
-    height: 40px;
-
-    margin: 5px 0 23px 0;
-    padding: 0;
-    padding-left: 10px;
-
-    border-radius: 3px;
-    border: 1px solid #b2b2b2;
-
-    font-size: 1rem;
-}
-
-.valid:focus, .invalid:focus {
-    outline-color: #525252;
+.inputField:focus {
+  outline-color: #525252;
 }
 
 /* .title {
@@ -34,7 +32,12 @@
 } */
 
 label {
-    float: left;
-    font-weight:bold;
-    font-size: 1.2rem;
+  float: left;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.info {
+  line-height: 0.5rem;
+  text-align: left;
 }

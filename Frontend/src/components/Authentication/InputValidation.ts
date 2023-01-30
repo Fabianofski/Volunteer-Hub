@@ -9,7 +9,7 @@ export class InputValidation {
       input.match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       ) !== null;
-    return { valid: emailValid, info: [emailValid ? " " : "Email is invalid"] };
+    return { valid: emailValid, info: [] };
   }
 
   passwordIsValid(input: string): Validation {
@@ -22,11 +22,11 @@ export class InputValidation {
       pwdHasMinLength && pwdHasSpecialChar && pwdHasLowerChars && pwdHasUpperChars && pwdHasNumbers;
 
     const info: string[] = [];
-    info.push(`Password length is greater than 6 ${pwdHasMinLength ? "✅" : "❌"}`);
-    info.push(`Password has special char ${pwdHasSpecialChar ? "✅" : "❌"}`);
-    info.push(`Password has upper char ${pwdHasUpperChars ? "✅" : "❌"}`);
-    info.push(`Password has lower char ${pwdHasLowerChars ? "✅" : "❌"}`);
-    info.push(`Password has numbers ${pwdHasNumbers ? "✅" : "❌"}`);
+    info.push(`${pwdHasMinLength ? "✅" : "❌"} Password length is greater than 6`);
+    info.push(`${pwdHasSpecialChar ? "✅" : "❌"} Password has special char`);
+    info.push(`${pwdHasUpperChars ? "✅" : "❌"} Password has upper char`);
+    info.push(`${pwdHasLowerChars ? "✅" : "❌"} Password has lower char`);
+    info.push(`${pwdHasNumbers ? "✅" : "❌"} Password has numbers`);
 
     return { valid: pwdIsValid, info: info };
   }
@@ -34,7 +34,7 @@ export class InputValidation {
   telephoneIsValid(input: string): Validation {
     const telValid =
       input.match(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im) !== null;
-    return { valid: telValid, info: [telValid ? " " : "Telephone is invalid"] };
+    return { valid: telValid, info: [] };
   }
 
   dateOfBirthIsValid(input: string): Validation {
@@ -47,7 +47,7 @@ export class InputValidation {
   }
 
   inputIsNotEmpty(input: string): Validation {
-    const inputLongEnough = input.length >= 3;
-    return { valid: inputLongEnough, info: [inputLongEnough ? " " : "Must be longer than 2"] };
+    const inputLongEnough = input.length >= 2;
+    return { valid: inputLongEnough, info: [] };
   }
 }

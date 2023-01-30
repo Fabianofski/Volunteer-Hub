@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./InputField.css";
 import { Validation } from "./InputValidation";
 
@@ -13,31 +13,34 @@ type Props = {
 };
 
 function InputField({ title, value, setValue, type, placeholder, isInputValid, tooltip }: Props) {
-  const [valid, setValid] = useState(false);
   const [info, setInfo] = useState<string[]>([]);
+  const [className, setClassName] = useState("unset");
 
-  const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    const validation: Validation = isInputValid(e.target.value);
-    setValid(validation.valid);
+  const valueChanged = (input: string) => {
+    const validation: Validation = isInputValid(input);
+    setValue(input);
     setInfo(validation.info);
+    if (input.length >= 2) setClassName(validation.valid ? "valid" : "invalid");
   };
+  useEffect(() => valueChanged(""), []);
 
   return (
     <div>
       <label className="title">{title || placeholder}</label>
       <input
-        className={!valid ? "invalid" : "valid"}
+        className={"inputField " + className}
         type={type}
         value={value}
-        onChange={valueChanged}
+        onChange={(e) => valueChanged(e.target.value)}
         required
         title={tooltip || ""}
         placeholder={placeholder}
       />
-      {info.map((info) => {
-        return <p>{info}</p>;
-      })}
+      <div className={"info"}>
+        {info.map((info, idx) => {
+          return <p key={idx}>{info}</p>;
+        })}
+      </div>
     </div>
   );
 }
