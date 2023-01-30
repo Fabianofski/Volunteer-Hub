@@ -20,12 +20,13 @@ button:disabled {
 }
 
 .signInPage {
-  width: 30%;
+  width: 30vw;
 }
 
 .signUpPage {
   box-sizing: border-box;
   margin: 5rem;
+  max-width: 60vw;
 }
 
 .signUpForm {

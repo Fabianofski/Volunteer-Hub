@@ -4,7 +4,8 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { InputValidation } from "./InputValidation";
-import "./SignIn.css"
+import "./SignIn.css";
+import { errorCodes } from "./ErrorCodes";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function SignIn() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("-");
 
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
@@ -33,6 +35,7 @@ function SignIn() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setError(errorCodes[errorCode] || errorCode);
       });
   };
   return (
@@ -44,7 +47,6 @@ function SignIn() {
           setValue={setEmail}
           type={"email"}
           placeholder="Enter your email"
-          tooltip="Enter your email (email@example.com)"
           isInputValid={inputValidation.emailIsValid}
         />
         <InputField
@@ -53,13 +55,17 @@ function SignIn() {
           setValue={setPassword}
           type={"password"}
           placeholder={"Enter your password"}
-          tooltip={"Enter your password. \nIt should contain at least 3 characters."} // TODO!! Was muss es beinhalten`?
           isInputValid={inputValidation.inputIsNotEmpty}
         />
-        <button type="submit" onClick={onSubmit} disabled={!allInputsValid} title="Please fill in all the required fields">
+        <button
+          type="submit"
+          onClick={onSubmit}
+          disabled={!allInputsValid}
+          title="Please fill in all the required fields">
           Sign in
         </button>
       </form>
+      <p style={{ color: "red" }}>{error}</p>
       <a href={"/signup"}>Create a new account?</a>
     </div>
   );

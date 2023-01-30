@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { InputValidation, Validation } from "./InputValidation";
+import { errorCodes } from "./ErrorCodes";
 
 async function createUser(
   email: string,
@@ -46,6 +47,7 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [telephone, setTelephone] = useState<string>("");
   const [dateOfBirth, setDateOfBirth] = useState<Date>();
+  const [error, setError] = useState("-");
 
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
@@ -60,7 +62,7 @@ function SignUp() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      alert(errorCode + " " + errorMessage);
+      setError(errorCodes[errorCode] || errorCode);
     });
   };
 
@@ -125,6 +127,7 @@ function SignUp() {
           Sign up
         </button>
       </form>
+      <p style={{ color: "red" }}>{error}</p>
       <a href={"/login"}>Already have an account?</a>
     </div>
   );

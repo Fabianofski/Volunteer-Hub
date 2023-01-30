@@ -9,10 +9,9 @@ type Props = {
   type: string;
   placeholder: string;
   isInputValid: Function;
-  tooltip?: string;
 };
 
-function InputField({ title, value, setValue, type, placeholder, isInputValid, tooltip }: Props) {
+function InputField({ title, value, setValue, type, placeholder, isInputValid }: Props) {
   const [info, setInfo] = useState<string[]>([]);
   const [className, setClassName] = useState("unset");
 
@@ -21,7 +20,7 @@ function InputField({ title, value, setValue, type, placeholder, isInputValid, t
     setValue(input);
     setInfo(validation.info);
     if (input.length >= 2) setClassName(validation.valid ? "valid" : "invalid");
-    else if(className !== "unset") setClassName("invalid");
+    else if (className !== "unset") setClassName("invalid");
   };
   useEffect(() => valueChanged(""), []);
 
@@ -34,7 +33,6 @@ function InputField({ title, value, setValue, type, placeholder, isInputValid, t
         value={value}
         onChange={(e) => valueChanged(e.target.value)}
         required
-        title={tooltip || ""}
         placeholder={placeholder}
       />
       <div className={"info"}>
