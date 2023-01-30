@@ -1,11 +1,42 @@
 button {
-    margin-top: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  height: 40px;
 
-    border-radius: 10px;
-    border: 1px solid #525252;
+  margin-top: 15px;
+  margin-bottom: 10px;
+
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 button:disabled {
-    border: 1px solid #bdbcbc;
+  border: 1px solid #bdbcbc;
+  background-color: #bdbcbc;
+}
+
+.signInPage {
+  max-width: 30rem;
+  width: 95vw;
+}
+
+.signUpPage {
+  box-sizing: border-box;
+  margin: 5rem;
+  max-width: 60rem;
+  width: 95vw;
+}
+
+.signUpForm {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.col-span-2 {
+  grid-column: span 2;
 }

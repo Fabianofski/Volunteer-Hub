@@ -1,34 +1,45 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./InputField.css";
+import { Validation } from "./InputValidation";
 
 type Props = {
+  title?: String;
   value: any;
   setValue: React.Dispatch<any>;
   type: string;
   placeholder: string;
   isInputValid: Function;
-  title?: string;
 };
 
-function InputField({ value, setValue, type, placeholder, isInputValid, title }: Props) {
-  const [valid, setValid] = useState(false);
-  const valueChanged = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setValid(isInputValid(e.target.value));
+function InputField({ title, value, setValue, type, placeholder, isInputValid }: Props) {
+  const [info, setInfo] = useState<string[]>([]);
+  const [className, setClassName] = useState("unset");
+
+  const valueChanged = (input: string) => {
+    const validation: Validation = isInputValid(input);
+    setValue(input);
+    setInfo(validation.info);
+    if (input.length >= 2) setClassName(validation.valid ? "valid" : "invalid");
+    else if (className !== "unset") setClassName("invalid");
   };
+  useEffect(() => valueChanged(""), []);
 
   return (
     <div>
-      <label className="title">{placeholder}</label>
+      <label className="title">{title || placeholder}</label>
       <input
-        className={!valid ? "invalid" : "valid"}
+        className={"inputField " + className}
         type={type}
         value={value}
-        onChange={valueChanged}
+        onChange={(e) => valueChanged(e.target.value)}
         required
-        title={title || ""}
         placeholder={placeholder}
       />
+      <div className={"info"}>
+        {info.map((info, idx) => {
+          return <p key={idx}>{info}</p>;
+        })}
+      </div>
     </div>
   );
 }

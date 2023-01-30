@@ -3,7 +3,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
-import { InputValidation } from "./InputValidation";
+import { InputValidation, Validation } from "./InputValidation";
+import { errorCodes } from "./ErrorCodes";
 
 async function createUser(
   email: string,
@@ -39,17 +40,20 @@ function SignUp() {
   const navigate = useNavigate();
   if (auth.currentUser !== null) navigate("/");
   let inputValidation: InputValidation = new InputValidation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [telephone, setTelephone] = useState<string>("");
   const [dateOfBirth, setDateOfBirth] = useState<Date>();
+  const [error, setError] = useState("-");
 
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
+    const unsetForm = document.querySelector(".unset");
     const invalidForm = document.querySelector(".invalid");
-    setAllInputsValid(invalidForm === null);
+    setAllInputsValid(invalidForm === null && unsetForm === null);
   }, [email, password, firstname, lastname, telephone, dateOfBirth]);
 
   const onSubmit = (e: React.FormEvent) => {
@@ -58,26 +62,17 @@ function SignUp() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      alert(errorCode + " " + errorMessage);
+      setError(errorCodes[errorCode] || errorCode);
     });
   };
+
+  const confirmPasswordIsValid = (input: string): Validation => {
+    return { valid: password === input, info: [] };
+  };
+
   return (
-    <div>
-      <form>
-        <InputField
-          value={email}
-          setValue={setEmail}
-          type={"email"}
-          placeholder={"Email address"}
-          isInputValid={inputValidation.emailIsValid}
-        />
-        <InputField
-          value={password}
-          setValue={setPassword}
-          type={"password"}
-          placeholder={"Password"}
-          isInputValid={inputValidation.passwordIsValid}
-        />
+    <div className={"signUpPage"}>
+      <form className={"signUpForm"}>
         <InputField
           value={firstname}
           setValue={setFirstname}
@@ -93,6 +88,28 @@ function SignUp() {
           isInputValid={inputValidation.inputIsNotEmpty}
         />
         <InputField
+          value={email}
+          setValue={setEmail}
+          type={"email"}
+          placeholder={"Email address"}
+          isInputValid={inputValidation.emailIsValid}
+        />
+        <div></div>
+        <InputField
+          value={password}
+          setValue={setPassword}
+          type={"password"}
+          placeholder={"Password"}
+          isInputValid={inputValidation.passwordIsValid}
+        />
+        <InputField
+          value={confirmPassword}
+          setValue={setConfirmPassword}
+          type={"password"}
+          placeholder={"Confirm password"}
+          isInputValid={confirmPasswordIsValid}
+        />
+        <InputField
           value={telephone}
           setValue={setTelephone}
           type={"tel"}
@@ -106,10 +123,11 @@ function SignUp() {
           placeholder={"Date of birth"}
           isInputValid={inputValidation.dateOfBirthIsValid}
         />
-        <button type="submit" onClick={onSubmit} disabled={!allInputsValid}>
+        <button className="col-span-2" type="submit" onClick={onSubmit} disabled={!allInputsValid}>
           Sign up
         </button>
       </form>
+      <p style={{ color: "red" }}>{error}</p>
       <a href={"/login"}>Already have an account?</a>
     </div>
   );

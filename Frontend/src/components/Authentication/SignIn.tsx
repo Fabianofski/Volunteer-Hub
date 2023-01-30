@@ -4,7 +4,8 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { InputValidation } from "./InputValidation";
-import "./SignIn.css"
+import "./SignIn.css";
+import { errorCodes } from "./ErrorCodes";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function SignIn() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("-");
 
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
@@ -33,31 +35,37 @@ function SignIn() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setError(errorCodes[errorCode] || errorCode);
       });
   };
   return (
-    <div>
+    <div className="signInPage">
       <form>
         <InputField
+          title="Email"
           value={email}
           setValue={setEmail}
           type={"email"}
-          placeholder={"Email address"}
-          title="Please enter your email adress"
+          placeholder="Enter your email"
           isInputValid={inputValidation.emailIsValid}
         />
         <InputField
+          title="Password"
           value={password}
           setValue={setPassword}
           type={"password"}
-          placeholder={"Password"}
-          title="Please enter your password. It should contain at least 3 characters."
+          placeholder={"Enter your password"}
           isInputValid={inputValidation.inputIsNotEmpty}
         />
-        <button className="SignIn" type="submit" onClick={onSubmit} disabled={!allInputsValid} >
+        <button
+          type="submit"
+          onClick={onSubmit}
+          disabled={!allInputsValid}
+          title="Please fill in all the required fields">
           Sign in
         </button>
       </form>
+      <p style={{ color: "red" }}>{error}</p>
       <a href={"/signup"}>Create a new account?</a>
     </div>
   );

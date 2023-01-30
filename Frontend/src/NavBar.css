@@ -3,7 +3,7 @@
     font-weight: 900;
     font-size: large;
     color: var(--text-color);
-
+    overflow: hidden;
 }
 .nav {
     height: 2rem;
