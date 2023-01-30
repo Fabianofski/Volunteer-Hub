@@ -56,7 +56,7 @@ app.post(
   "/api/signUp/",
   jsonParser,
   async (req: Request<User>, res: Response) => {
-    console.log(req.body.fg);
+    console.log(req.body);
     res.send({ status: "Success" });
   }
 );
