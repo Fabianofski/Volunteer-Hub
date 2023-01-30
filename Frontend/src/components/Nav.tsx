@@ -16,7 +16,7 @@ function Nav({ currentUID }: { currentUID: string }) {
       {currentUID === "" ? (
         <a href="/login">
           {" "}
-          <img src="SignIn.png" alt="SignIn" width="90" height="35" />{" "}
+          <img src="/SignIn.png" alt="SignIn" width="90" height="35" />{" "}
         </a>
       ) : (
         <a onClick={() => auth.signOut()} href={"#logout"}>
