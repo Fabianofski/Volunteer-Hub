@@ -72,6 +72,7 @@ function SignUp() {
 
   return (
     <div className={"signUpPage"}>
+      <h1>Create a new Account!</h1>
       <form className={"signUpForm"}>
         <InputField
           value={firstname}
