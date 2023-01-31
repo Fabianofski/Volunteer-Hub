@@ -77,21 +77,24 @@ function SignUp() {
           value={firstname}
           setValue={setFirstname}
           type={""}
-          placeholder={"First name"}
+          title="First Name"
+          placeholder={"Enter your first name"}
           isInputValid={inputValidation.inputIsNotEmpty}
         />
         <InputField
           value={lastname}
           setValue={setLastname}
           type={""}
-          placeholder={"Last name"}
+          title="Last Name"
+          placeholder={"Enter your last name"}
           isInputValid={inputValidation.inputIsNotEmpty}
         />
         <InputField
           value={email}
           setValue={setEmail}
           type={"email"}
-          placeholder={"Email address"}
+          title="Email"
+          placeholder={"Enter your email"}
           isInputValid={inputValidation.emailIsValid}
         />
         <div></div>
@@ -99,28 +102,33 @@ function SignUp() {
           value={password}
           setValue={setPassword}
           type={"password"}
-          placeholder={"Password"}
+          title="Password"
+          placeholder={"Enter your password"}
           isInputValid={inputValidation.passwordIsValid}
+          showInfo={true}
         />
         <InputField
           value={confirmPassword}
           setValue={setConfirmPassword}
           type={"password"}
-          placeholder={"Confirm password"}
+          title="Confirm Password"
+          placeholder={"Confirm your password"}
           isInputValid={confirmPasswordIsValid}
         />
         <InputField
           value={telephone}
           setValue={setTelephone}
           type={"tel"}
-          placeholder={"Telephone"}
+          title="Telephone"
+          placeholder={"Enter your telephone number"}
           isInputValid={inputValidation.telephoneIsValid}
         />
         <InputField
           value={dateOfBirth}
           setValue={setDateOfBirth}
           type={"date"}
-          placeholder={"Date of birth"}
+          title="Date Of Birth"
+          placeholder={"Enter your Date of birth"}
           isInputValid={inputValidation.dateOfBirthIsValid}
         />
         <button className="col-span-2" type="submit" onClick={onSubmit} disabled={!allInputsValid}>
