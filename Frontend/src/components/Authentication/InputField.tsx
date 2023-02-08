@@ -9,9 +9,10 @@ type Props = {
   type: string;
   placeholder: string;
   isInputValid: Function;
+  showInfo?: boolean;
 };
 
-function InputField({ title, value, setValue, type, placeholder, isInputValid }: Props) {
+function InputField({ title, value, setValue, type, placeholder, isInputValid, showInfo }: Props) {
   const [info, setInfo] = useState<string[]>([]);
   const [className, setClassName] = useState("unset");
 
@@ -25,6 +26,35 @@ function InputField({ title, value, setValue, type, placeholder, isInputValid }:
   useEffect(() => valueChanged(""), []);
 
   return (
+    <div>
+      <label className="title">{title || placeholder}</label>
+      <div className={"inputField " + className}>
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => valueChanged(e.target.value)}
+          required
+          placeholder={placeholder}
+          title={placeholder}
+        />
+        {showInfo ? (
+          <>
+            <div className="infoButton">?</div>
+            <div className="info">
+              {info.map((info, idx) => {
+                return <p key={idx}>{info}</p>;
+              })}
+            </div>
+          </>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+export default InputField;
+
+/* 
     <div>
       <label className="title">{title || placeholder}</label>
       <input
@@ -41,7 +71,4 @@ function InputField({ title, value, setValue, type, placeholder, isInputValid }:
         })}
       </div>
     </div>
-  );
-}
-
-export default InputField;
+*/
