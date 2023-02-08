@@ -53,10 +53,6 @@
   border-bottom: 3px solid var(--green);
 }
 
-.inputField:focus {
-  outline: none;
-}
-
 /* .title {
     margin-top: 10px;
 } */
@@ -116,4 +112,24 @@ label {
 .invalid .infoButton {
   border: 2px solid var(--red);
   color: var(--red);
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3;
+}
+
+.col-span-4 {
+  grid-column: span 4;
+}
+
+.col-span-5 {
+  grid-column: span 5;
+}
+
+.col-span-max {
+  grid-column: 1/-1;
 }

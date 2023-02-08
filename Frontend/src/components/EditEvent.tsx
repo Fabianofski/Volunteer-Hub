@@ -32,6 +32,9 @@ function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
 
 function EditView({}) {
   const [eventName, setEventName] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [description, setDescription] = useState("");
   let inputValidation = new InputValidation();
 
   return (
@@ -43,6 +46,31 @@ function EditView({}) {
           type={""}
           placeholder={"Eventname"}
           isInputValid={inputValidation.inputIsNotEmpty}
+          className={"col-span-4"}
+        />
+        <InputField
+          value={date}
+          setValue={setDate}
+          type={"date"}
+          placeholder={"Datum"}
+          isInputValid={inputValidation.dateIsInFuture}
+          className={"col-span-1"}
+        />
+        <InputField
+          value={time}
+          setValue={setTime}
+          type={"time"}
+          placeholder={"Uhrzeit"}
+          isInputValid={inputValidation.inputIsNotEmpty}
+          className={"col-span-1"}
+        />
+        <InputField
+          value={description}
+          setValue={setDescription}
+          type={"textarea"}
+          placeholder={"Beschreibung"}
+          isInputValid={inputValidation.inputIsNotEmpty}
+          className={"col-span-max"}
         />
       </form>
     </div>

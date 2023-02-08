@@ -1,3 +1,5 @@
+import { NavLinkProps } from "react-router-dom";
+
 export interface Validation {
   valid: boolean;
   info: string[];
@@ -33,7 +35,7 @@ export class InputValidation {
 
   telephoneIsValid(input: string): Validation {
     const telValid =
-      input.match(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im) !== null;
+      input.match(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,7}$/im) !== null;
     return { valid: telValid, info: [] };
   }
 
@@ -44,6 +46,15 @@ export class InputValidation {
     minDate.setFullYear(minDate.getFullYear() - 99);
 
     return { valid: new Date(input) < maxDate && new Date(input) > minDate, info: [] };
+  }
+
+  dateIsInFuture(input: string): Validation {
+    const today: Date = new Date();
+    const isInFuture = new Date(input) > today;
+    const info = [];
+    if (isInFuture) info.push("Datum muss in der Zukunft liegen!");
+
+    return { valid: isInFuture, info: info };
   }
 
   inputIsNotEmpty(input: string): Validation {

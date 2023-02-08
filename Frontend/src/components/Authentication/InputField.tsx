@@ -10,25 +10,35 @@ type Props = {
   placeholder: string;
   isInputValid: Function;
   showInfo?: boolean;
+  className?: string;
 };
 
-function InputField({ title, value, setValue, type, placeholder, isInputValid, showInfo }: Props) {
+function InputField({
+  title,
+  value,
+  setValue,
+  type,
+  placeholder,
+  isInputValid,
+  showInfo,
+  className
+}: Props) {
   const [info, setInfo] = useState<string[]>([]);
-  const [className, setClassName] = useState("unset");
+  const [validState, setValidState] = useState("unset");
 
   const valueChanged = (input: string) => {
     const validation: Validation = isInputValid(input);
     setValue(input);
     setInfo(validation.info);
-    if (input.length >= 2) setClassName(validation.valid ? "valid" : "invalid");
-    else if (className !== "unset") setClassName("invalid");
+    if (input.length >= 2) setValidState(validation.valid ? "valid" : "invalid");
+    else if (validState !== "unset") setValidState("invalid");
   };
   useEffect(() => valueChanged(""), []);
 
   return (
-    <div>
+    <div className={className}>
       <label className="title">{title || placeholder}</label>
-      <div className={"inputField " + className}>
+      <div className={`inputField  + ${validState}`}>
         <input
           type={type}
           value={value}

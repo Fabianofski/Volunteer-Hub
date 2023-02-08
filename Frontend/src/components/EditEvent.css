@@ -30,3 +30,31 @@
   box-sizing: border-box;
   padding: 1rem;
 }
+
+.editView form {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 800px) {
+  .editView form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .col-span-3,
+  .col-span-4,
+  .col-span-5 {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+  .editView form {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .col-span-5 {
+    grid-column: span 4;
+  }
+}
