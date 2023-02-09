@@ -1,6 +1,13 @@
 .editPage {
   max-width: 60rem;
   width: 95vw;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding: 1rem;
 }
 
 .viewMode {
@@ -31,14 +38,14 @@
   padding: 1rem;
 }
 
-.editView form {
+.inputGrid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 }
 
 @media (max-width: 800px) {
-  .editView form {
+  .inputGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -50,7 +57,7 @@
 }
 
 @media (min-width: 800px) and (max-width: 1200px) {
-  .editView form {
+  .inputGrid {
     grid-template-columns: repeat(4, 1fr);
   }
 

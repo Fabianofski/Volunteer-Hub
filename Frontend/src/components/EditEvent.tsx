@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "../App.css";
 import "./EditEvent.css";
 import { useParams } from "react-router-dom";
 import InputField from "./Authentication/InputField";
 import { InputValidation } from "./Authentication/InputValidation";
+import "./Authentication/InputField.css";
+import MDEditor from "@uiw/react-md-editor";
 
 function EditEvent() {
   const { eventId } = useParams();
@@ -31,47 +33,139 @@ function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
 }
 
 function EditView({}) {
-  const [eventName, setEventName] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [description, setDescription] = useState("");
+  const [eventName, setEventName] = useState<string>("");
+  const [organizer, setOrganizer] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
+  const [minParticipantNumber, setMinParticipantNumber] = useState<number>(0);
+  const [maxParticipantNumber, setMaxParticipantNumber] = useState<number>(0);
+  const [street, setStreet] = useState<string>("");
+  const [houseNumber, setHouseNumber] = useState<string>("");
+  const [postalCode, setPostalCode] = useState<string>("");
+  const [state, setState] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   let inputValidation = new InputValidation();
+
+  const [allInputsValid, setAllInputsValid] = useState(false);
+  useEffect(() => {
+    const invalidForm = document.querySelector(".invalid");
+    setAllInputsValid(invalidForm === null);
+  }, [
+    eventName,
+    organizer,
+    date,
+    time,
+    minParticipantNumber,
+    maxParticipantNumber,
+    street,
+    houseNumber,
+    postalCode,
+    state
+  ]);
 
   return (
     <div className={"editView"}>
       <form>
-        <InputField
-          value={eventName}
-          setValue={setEventName}
-          type={""}
-          placeholder={"Eventname"}
-          isInputValid={inputValidation.inputIsNotEmpty}
-          className={"col-span-4"}
-        />
-        <InputField
-          value={date}
-          setValue={setDate}
-          type={"date"}
-          placeholder={"Datum"}
-          isInputValid={inputValidation.dateIsInFuture}
-          className={"col-span-1"}
-        />
-        <InputField
-          value={time}
-          setValue={setTime}
-          type={"time"}
-          placeholder={"Uhrzeit"}
-          isInputValid={inputValidation.inputIsNotEmpty}
-          className={"col-span-1"}
-        />
-        <InputField
-          value={description}
-          setValue={setDescription}
-          type={"textarea"}
-          placeholder={"Beschreibung"}
-          isInputValid={inputValidation.inputIsNotEmpty}
-          className={"col-span-max"}
-        />
+        <h2 style={{ textAlign: "left" }}>Allgemein</h2>
+        <div className={"inputGrid"}>
+          <InputField
+            value={eventName}
+            setValue={setEventName}
+            type={""}
+            placeholder={"Eventname"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-4"}
+          />
+          <InputField
+            value={date}
+            setValue={setDate}
+            type={"date"}
+            placeholder={"Datum"}
+            isInputValid={inputValidation.dateIsInFuture}
+            className={"col-span-1"}
+          />
+          <InputField
+            value={time}
+            setValue={setTime}
+            type={"time"}
+            placeholder={"Uhrzeit"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-1"}
+          />
+          <InputField
+            value={organizer}
+            setValue={setOrganizer}
+            type={""}
+            placeholder={"Organisator"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-2"}
+          />
+          <InputField
+            value={minParticipantNumber}
+            setValue={setMinParticipantNumber}
+            type={"number"}
+            placeholder={"Teilnehmer (Min)"}
+            isInputValid={inputValidation.inputIsGreaterThanZero}
+            className={"col-span-2"}
+          />
+          <InputField
+            value={maxParticipantNumber}
+            setValue={setMaxParticipantNumber}
+            type={"number"}
+            placeholder={"Teilnehmer (Max)"}
+            isInputValid={inputValidation.inputIsGreaterThanZero}
+            className={"col-span-2"}
+          />
+        </div>
+        <h2 style={{ textAlign: "left" }}>Standort</h2>
+        <div className={"inputGrid"}>
+          <InputField
+            value={street}
+            setValue={setStreet}
+            type={"text"}
+            placeholder={"Straße"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-2"}
+          />
+          <InputField
+            value={houseNumber}
+            setValue={setHouseNumber}
+            type={"text"}
+            placeholder={"Nummer"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-1"}
+          />
+          <InputField
+            value={postalCode}
+            setValue={setPostalCode}
+            type={"number"}
+            placeholder={"PLZ"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-1"}
+          />
+          <InputField
+            value={state}
+            setValue={setState}
+            type={"text"}
+            placeholder={"Stadt"}
+            isInputValid={inputValidation.inputIsNotEmpty}
+            className={"col-span-2"}
+          />
+        </div>
+        <h2 style={{ textAlign: "left" }}>Beschreibung</h2>
+        <div data-color-mode={"light"} className={"textInput"}>
+          <MDEditor
+            height={300}
+            value={description}
+            onChange={(e) => setDescription(e as string)}
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={!allInputsValid}
+          title="Please fill in all the required fields">
+          Create
+        </button>
       </form>
     </div>
   );

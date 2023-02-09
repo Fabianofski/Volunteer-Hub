@@ -61,4 +61,9 @@ export class InputValidation {
     const inputLongEnough = input.length >= 2;
     return { valid: inputLongEnough, info: [] };
   }
+
+  inputIsGreaterThanZero(input: string): Validation {
+    const num = Number(input);
+    return { valid: num >= 1 && num <= 499, info: [] };
+  }
 }

@@ -3,7 +3,7 @@
   --green: rgb(36, 207, 53);
 }
 
-.inputField {
+.inputField, .textInput {
   box-sizing: border-box;
 
   background-color: rgb(255, 255, 255);
@@ -26,6 +26,10 @@
   position: relative;
 }
 
+.textInput {
+  height: fit-content;
+}
+
 .inputField input {
   width: calc(100% - 10px);
   height: 100%;
@@ -33,6 +37,8 @@
   outline: 0;
   margin: 0;
   padding: 0 0 0 10px;
+}
+.textInput:focus-within {
 }
 
 .inputField:focus-within {
@@ -44,6 +50,7 @@
 .inputField:focus-within.unset {
   border: 2px solid #525252;
 }
+
 
 .invalid {
   border-bottom: 3px solid var(--red);

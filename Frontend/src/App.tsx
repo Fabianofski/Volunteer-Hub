@@ -36,7 +36,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
-        <Footer />
+        {/*<Footer />*/}
       </div>
     </Router>
   );

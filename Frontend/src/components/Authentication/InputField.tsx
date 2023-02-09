@@ -30,7 +30,7 @@ function InputField({
     const validation: Validation = isInputValid(input);
     setValue(input);
     setInfo(validation.info);
-    if (input.length >= 2) setValidState(validation.valid ? "valid" : "invalid");
+    if (input.length >= 2 || Number(input)) setValidState(validation.valid ? "valid" : "invalid");
     else if (validState !== "unset") setValidState("invalid");
   };
   useEffect(() => valueChanged(""), []);
