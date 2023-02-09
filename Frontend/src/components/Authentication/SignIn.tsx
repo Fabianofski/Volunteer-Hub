@@ -40,6 +40,7 @@ function SignIn() {
   };
   return (
     <div className="signInPage">
+      <h1>Welcome Back!</h1>
       <form>
         <InputField
           title="Email"
