@@ -33,7 +33,7 @@ function InputField({
     if (input.length >= 2 || Number(input)) setValidState(validation.valid ? "valid" : "invalid");
     else if (validState !== "unset") setValidState("invalid");
   };
-  useEffect(() => valueChanged(""), []);
+  useEffect(() => valueChanged(value), []);
 
   return (
     <div className={className}>
@@ -41,7 +41,7 @@ function InputField({
       <div className={`inputField  + ${validState}`}>
         <input
           type={type}
-          value={value}
+          defaultValue={value}
           onChange={(e) => valueChanged(e.target.value)}
           required
           placeholder={placeholder}

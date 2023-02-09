@@ -7,6 +7,23 @@ import { InputValidation } from "./Authentication/InputValidation";
 import "./Authentication/InputField.css";
 import MDEditor from "@uiw/react-md-editor";
 
+const defaultMarkdown = `
+  # Eventname
+  
+  ## Allgemeine Informationen
+  
+  Lorem ipsum dolor sit amet
+  
+  ## Qualifikationen
+  
+  - Punkt 1
+  - Punkt 2
+  
+  ## Was dich erwartet
+  
+  consetetur sadipscing elitr, sed diam nonumy
+`;
+
 function EditEvent() {
   const { eventId } = useParams();
   const [mode, setMode] = useState("edit");
@@ -43,13 +60,14 @@ function EditView({}) {
   const [houseNumber, setHouseNumber] = useState<string>("");
   const [postalCode, setPostalCode] = useState<string>("");
   const [state, setState] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [description, setDescription] = useState<string>(defaultMarkdown);
   let inputValidation = new InputValidation();
 
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
+    const unsetForm = document.querySelector(".unset");
     const invalidForm = document.querySelector(".invalid");
-    setAllInputsValid(invalidForm === null);
+    setAllInputsValid(invalidForm === null && unsetForm === null);
   }, [
     eventName,
     organizer,
@@ -155,7 +173,7 @@ function EditView({}) {
         <h2 style={{ textAlign: "left" }}>Beschreibung</h2>
         <div data-color-mode={"light"} className={"textInput"}>
           <MDEditor
-            height={300}
+            height={500}
             value={description}
             onChange={(e) => setDescription(e as string)}
           />
