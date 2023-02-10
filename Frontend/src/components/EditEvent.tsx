@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import "./EditEvent.css";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import InputField from "./Authentication/InputField";
 import { InputValidation } from "./Authentication/InputValidation";
 import "./Authentication/InputField.css";
 import MDEditor from "@uiw/react-md-editor";
+import { EventModel } from "../model/EventModel";
 
 const defaultMarkdown = `
   # Eventname
@@ -24,14 +25,38 @@ const defaultMarkdown = `
   consetetur sadipscing elitr, sed diam nonumy
 `;
 
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
 function EditEvent() {
   const { eventId } = useParams();
   const [mode, setMode] = useState("edit");
-
+  const [event, setEvent] = useState<EventModel>({
+    maxParticipants: 0,
+    minParticipants: 0,
+    alias: "",
+    time: "",
+    about: defaultMarkdown,
+    banner: "",
+    date: tomorrow,
+    eventId: "",
+    eventName: "",
+    location: {
+      street: "",
+      houseNumber: "",
+      postalCode: 0,
+      town: ""
+    },
+    organizer: {
+      uid: "",
+      name: ""
+    }
+  });
+  if (eventId) console.log(eventId);
   return (
     <div className={"editPage"}>
       <SetViewMode setMode={setMode} />
-      {mode === "edit" ? <EditView /> : <h1>Preview</h1>}
+      {mode === "edit" ? <EditView event={event} /> : <h1>Preview</h1>}
     </div>
   );
 }
@@ -49,20 +74,19 @@ function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
   );
 }
 
-function EditView({}) {
-  const [eventName, setEventName] = useState<string>("");
-  const [organizer, setOrganizer] = useState<string>("");
-  const [date, setDate] = useState<string>("");
-  const [time, setTime] = useState<string>("");
-  const [minParticipantNumber, setMinParticipantNumber] = useState<number>(0);
-  const [maxParticipantNumber, setMaxParticipantNumber] = useState<number>(0);
-  const [street, setStreet] = useState<string>("");
-  const [houseNumber, setHouseNumber] = useState<string>("");
-  const [postalCode, setPostalCode] = useState<string>("");
-  const [state, setState] = useState<string>("");
-  const [description, setDescription] = useState<string>(defaultMarkdown);
+function EditView({ event }: { event: EventModel }) {
+  const [eventName, setEventName] = useState<string>(event.eventName);
+  const [organizer, setOrganizer] = useState<string>(event.alias);
+  const [date, setDate] = useState<string>(event.date.toISOString().substring(0, 10));
+  const [time, setTime] = useState<string>(event.time);
+  const [minParticipantNumber, setMinParticipantNumber] = useState<number>(event.minParticipants);
+  const [maxParticipantNumber, setMaxParticipantNumber] = useState<number>(event.maxParticipants);
+  const [street, setStreet] = useState<string>(event.location.street);
+  const [houseNumber, setHouseNumber] = useState<string>(event.location.houseNumber);
+  const [postalCode, setPostalCode] = useState<number>(event.location.postalCode);
+  const [town, setTown] = useState<string>(event.location.town);
+  const [description, setDescription] = useState<string>(event.about);
   let inputValidation = new InputValidation();
-
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
     const unsetForm = document.querySelector(".unset");
@@ -78,7 +102,7 @@ function EditView({}) {
     street,
     houseNumber,
     postalCode,
-    state
+    town
   ]);
 
   return (
@@ -162,8 +186,8 @@ function EditView({}) {
             className={"col-span-1"}
           />
           <InputField
-            value={state}
-            setValue={setState}
+            value={town}
+            setValue={setTown}
             type={"text"}
             placeholder={"Stadt"}
             isInputValid={inputValidation.inputIsNotEmpty}
