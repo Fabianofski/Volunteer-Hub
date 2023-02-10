@@ -27,6 +27,7 @@ function InputField({
   const [validState, setValidState] = useState("unset");
 
   const valueChanged = (input: string) => {
+    if (input === undefined) return;
     const validation: Validation = isInputValid(input);
     setValue(input);
     setInfo(validation.info);
