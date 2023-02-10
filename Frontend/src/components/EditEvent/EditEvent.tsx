@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import "../App.css";
-import "./EditEvent.css";
 import { useParams } from "react-router-dom";
-import InputField from "./Authentication/InputField";
-import { InputValidation } from "./Authentication/InputValidation";
-import "./Authentication/InputField.css";
-import MDEditor from "@uiw/react-md-editor";
-import { EventModel } from "../model/EventModel";
-
-const defaultMarkdown = `
-  # Eventname
-  
-  ## Allgemeine Informationen
-  
-  Lorem ipsum dolor sit amet
-  
-  ## Qualifikationen
-  
-  - Punkt 1
-  - Punkt 2
-  
-  ## Was dich erwartet
-  
-  consetetur sadipscing elitr, sed diam nonumy
-`;
+import "../../App.css";
+import "./EditEvent.css";
+import "../Authentication/InputField.css";
+import InputField from "../Authentication/InputField";
+import { InputValidation } from "../Authentication/InputValidation";
+import { EventModel } from "../../model/EventModel";
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import { defaultMarkdown } from "./defaultMarkdown";
+import { commands } from "./MarkdownCommands";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-function EditEvent() {
+function EditEvent({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
+
+  useEffect(() => {
+    // Confirmation before leaving site to prevent accidental data loss
+    const unloadCallback = (event: any) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []);
+
   const [mode, setMode] = useState("edit");
   const [event, setEvent] = useState<EventModel>({
     maxParticipants: 0,
@@ -48,11 +46,12 @@ function EditEvent() {
       town: ""
     },
     organizer: {
-      uid: "",
+      uid: currentUID,
       name: ""
     }
   });
   if (eventId) console.log(eventId);
+
   return (
     <div className={"editPage"}>
       <SetViewMode setMode={setMode} />
@@ -64,10 +63,10 @@ function EditEvent() {
 function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
   return (
     <div className={"viewMode"}>
-      <a href="#edit" onClick={() => setMode("edit")}>
+      <a href="Frontend/src/components#edit" onClick={() => setMode("edit")}>
         Edit
       </a>
-      <a href="#preview" onClick={() => setMode("preview")}>
+      <a href="Frontend/src/components#preview" onClick={() => setMode("preview")}>
         Preview
       </a>
     </div>
@@ -86,6 +85,7 @@ function EditView({ event }: { event: EventModel }) {
   const [postalCode, setPostalCode] = useState<number>(event.location.postalCode);
   const [town, setTown] = useState<string>(event.location.town);
   const [description, setDescription] = useState<string>(event.about);
+
   let inputValidation = new InputValidation();
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
@@ -196,10 +196,12 @@ function EditView({ event }: { event: EventModel }) {
         </div>
         <h2 style={{ textAlign: "left" }}>Beschreibung</h2>
         <div data-color-mode={"light"} className={"textInput"}>
-          <MDEditor
-            height={500}
+          <MarkdownEditor
+            height={"500"}
             value={description}
-            onChange={(e) => setDescription(e as string)}
+            visible={true}
+            toolbars={commands}
+            onChange={(e: any) => setDescription(e as string)}
           />
         </div>
         <button
