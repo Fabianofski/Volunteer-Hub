@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import "../NavBar.css";
+import "./NavBar.css";
 
 function Footer() {
   return (

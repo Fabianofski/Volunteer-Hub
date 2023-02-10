@@ -1,0 +1,64 @@
+.nav,
+.footer {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-size: large;
+  color: var(--text-color);
+  overflow: hidden;
+}
+.nav {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5%;
+  padding: 0.8rem 1rem 0.8rem 1rem;
+  background: linear-gradient(to right, var(--orange-color), var(--yellow-color) 100%);
+  background-position: 0 100%;
+  background-size: 100% 3px;
+  background-repeat: repeat-x;
+}
+.logo {
+  margin-right: auto;
+  font-size: x-large;
+  flex-grow: 0.8;
+  text-align: left;
+  color: var(--text-color);
+}
+
+.logo img {
+  margin-right: 0.5rem;
+}
+
+.footer {
+  height: 3rem;
+  background-color: var(--primary-color);
+  padding: 14px 16px;
+  text-align: center;
+}
+.nav a {
+  text-decoration: none;
+}
+/* unvisited link */
+.nav a:link,
+.nav a:visited {
+  color: var(--text-color);
+}
+
+/* mouse over link */
+.nav a:hover {
+  color: black;
+}
+
+/* selected link */
+.nav a:active {
+  color: black;
+  background: linear-gradient(to left, var(--orange-color), var(--yellow-color) 100%);
+  background-position: 0 100%;
+  background-size: 100% 3px;
+  background-repeat: repeat-x;
+}
+
+.signinBtn {
+  height: 2rem;
+}
