@@ -23,12 +23,13 @@
 
 .headings h1 {
   font-size: 3rem;
-  background: linear-gradient(to bottom, var(--orange-color), var(--yellow-color) 100%);
+  color: var(--orange-color);
+  /* background: linear-gradient(to bottom, var(--orange-color), var(--yellow-color) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
+  -moz-text-fill-color: transparent; */
 }
 
 .headings h2 {

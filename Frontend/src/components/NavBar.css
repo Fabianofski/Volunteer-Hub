@@ -51,7 +51,7 @@
 }
 
 /* selected link */
-.nav a:active {
+.nav a:active :not(.signInBtn) {
   color: black;
   background: linear-gradient(to left, var(--orange-color), var(--yellow-color) 100%);
   background-position: 0 100%;
@@ -59,6 +59,28 @@
   background-repeat: repeat-x;
 }
 
-.signinBtn {
-  height: 2rem;
+.signInBtn {
+  box-shadow: 2px 2px 3px #00000078;
+
+  width: 90px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(to left, var(--orange-color), var(--yellow-color) 100%);
+  border-radius: 5px;
+
+  margin-right: calc(5vw - 2.4rem);
+}
+
+.signInBtn:hover {
+  box-shadow: 2.5px 2.5px 3px #00000078;
+}
+
+.logOut {
+  margin-right: calc(5vw - 2.4rem);
 }

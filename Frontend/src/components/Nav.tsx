@@ -22,11 +22,12 @@ function Nav({ currentUID }: { currentUID: string }) {
       <a href="/about">About</a>
       {currentUID === "" ? (
         <a href="/login">
-          {" "}
-          <img className="signinBtn" src="/signinBtn.svg" alt="SignIn" />{" "}
+          <div className="signInBtn">Sign In</div>
+          {/* {" "}
+          <img className="signinBtn" src="/signinBtn.svg" alt="SignIn" />{" "} */}
         </a>
       ) : (
-        <a onClick={() => auth.signOut()} href={"#logout"}>
+        <a className="logOut" onClick={() => auth.signOut()} href={"#logout"}>
           Logout
         </a>
       )}
