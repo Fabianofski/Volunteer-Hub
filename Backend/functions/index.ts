@@ -85,7 +85,7 @@ app.post(
     const eventId: string = <string>req.query.eventId;
     const userId: string = <string>req.query.userId;
     console.log(`User: ${userId} applied for Event: ${eventId}`);
-    res.send(`User: ${userId} applied for Event: ${eventId}`);
+    res.send({ response: `User: ${userId} applied for Event: ${eventId}` });
   }
 );
 

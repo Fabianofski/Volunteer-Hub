@@ -8,7 +8,13 @@ import { EventModel } from "../model/EventModel";
 import { errorCodes } from "./Authentication/ErrorCodes";
 
 async function addToDataBase(thisEventId: string | undefined, userId: string | undefined) {
-  //wohoo
+  fetch("http://localhost:3001/api/apply?userId=883jjvnxs&eventId=dafsdf", {
+    method: "POST"
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log("Success:", result);
+    });
 }
 
 function Event() {
