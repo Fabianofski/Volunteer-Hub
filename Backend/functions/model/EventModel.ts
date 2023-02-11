@@ -6,6 +6,7 @@ export interface EventModel {
   alias: string;
   organizer: Organizer;
   minParticipants: number;
+  currentParticipants: number;
   maxParticipants: number;
   location: Location;
   banner: string;
