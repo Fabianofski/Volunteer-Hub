@@ -12,12 +12,10 @@ function Nav({ currentUID }: { currentUID: string }) {
       <div></div>
       <a href="#search">Search</a>
       <a href="/about">About</a>
-      <a href="/event/req.query.eventId">Event</a>
-      <a href="/privacy-policy">Privacy Policy</a>
       {currentUID === "" ? (
         <a href="/login">
           {" "}
-          <img src="SignIn.png" alt="SignIn" width="90" height="35" />{" "}
+          <img src="/SignIn.png" alt="SignIn" width="90" height="35" />{" "}
         </a>
       ) : (
         <a onClick={() => auth.signOut()} href={"#logout"}>

@@ -1,27 +1,85 @@
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import "./InputField.css";
+import { Validation } from "./InputValidation";
 
 type Props = {
-  value : any,
-  setValue : React.Dispatch<any>,
-  type : string,
-  placeholder : string,
-}
+  title?: String;
+  value: any;
+  setValue: React.Dispatch<any>;
+  type: string;
+  placeholder: string;
+  isInputValid: Function;
+  showInfo?: boolean;
+  className?: string;
+};
 
-function InputField ({value, setValue, type, placeholder} : Props) {
-  return(
-    <div>
-      <label>
-        {placeholder}
-      </label>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        required
-        placeholder={placeholder}
-      />
+function InputField({
+  title,
+  value,
+  setValue,
+  type,
+  placeholder,
+  isInputValid,
+  showInfo,
+  className
+}: Props) {
+  const [info, setInfo] = useState<string[]>([]);
+  const [validState, setValidState] = useState("unset");
+
+  const valueChanged = (input: string) => {
+    if (input === undefined) return;
+    const validation: Validation = isInputValid(input);
+    setValue(input);
+    setInfo(validation.info);
+    if (input.length >= 2 || Number(input)) setValidState(validation.valid ? "valid" : "invalid");
+    else if (validState !== "unset") setValidState("invalid");
+  };
+  useEffect(() => valueChanged(value), []);
+
+  return (
+    <div className={className}>
+      <label className="title">{title || placeholder}</label>
+      <div className={`inputField  + ${validState}`}>
+        <input
+          type={type}
+          defaultValue={value}
+          onChange={(e) => valueChanged(e.target.value)}
+          required
+          placeholder={placeholder}
+          title={placeholder}
+        />
+        {showInfo ? (
+          <>
+            <div className="infoButton">?</div>
+            <div className="info">
+              {info.map((info, idx) => {
+                return <p key={idx}>{info}</p>;
+              })}
+            </div>
+          </>
+        ) : null}
+      </div>
     </div>
   );
 }
 
 export default InputField;
+
+/* 
+    <div>
+      <label className="title">{title || placeholder}</label>
+      <input
+        className={"inputField " + className}
+        type={type}
+        value={value}
+        onChange={(e) => valueChanged(e.target.value)}
+        required
+        placeholder={placeholder}
+      />
+      <div className={"info"}>
+        {info.map((info, idx) => {
+          return <p key={idx}>{info}</p>;
+        })}
+      </div>
+    </div>
+*/

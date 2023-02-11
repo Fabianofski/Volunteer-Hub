@@ -1,24 +1,23 @@
 :root {
-    --primary-color: #F0FFFF;
-    --background-color: #F5F5F5;
-    --orange-color:#FDA085;
-    --yellow-color:#F6D365;
-    --text-color:#525252;
+  --primary-color: #f0ffff;
+  --background-color: #f5f5f5;
+  --orange-color: #fda085;
+  --yellow-color: #f6d365;
+  --text-color: #525252;
 }
 
 .App {
-    min-height: 100vh;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Lato',sans-serif ;
-    font-weight: 400;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
 }
 
 .Router {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

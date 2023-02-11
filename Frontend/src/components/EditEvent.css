@@ -1,0 +1,67 @@
+.editPage {
+  max-width: 60rem;
+  width: 95vw;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding: 1rem;
+}
+
+.viewMode {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(to right, var(--orange-color), var(--yellow-color) 100%);
+  border-image-slice: 1;
+}
+
+.viewMode a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-bottom: 1px solid transparent;
+}
+
+.viewMode a:hover {
+  border-bottom: 1px solid black;
+}
+
+.editView {
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 800px) {
+  .inputGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .col-span-3,
+  .col-span-4,
+  .col-span-5 {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+  .inputGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .col-span-5 {
+    grid-column: span 4;
+  }
+}
