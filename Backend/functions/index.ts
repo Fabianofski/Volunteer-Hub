@@ -78,5 +78,15 @@ app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) =
   res.send({ status: "Success" });
 });
 
+app.post(
+  "/api/apply/",
+  async (req: Request<{ userId: string; eventId: string }>, res: Response) => {
+    const eventId: string = <string>req.query.eventId;
+    const userId: string = <string>req.query.userId;
+    console.log(`User: ${userId} applied for Event: ${eventId}`);
+    res.send(`User: ${userId} applied for Event: ${eventId}`);
+  }
+);
+
 app.listen(PORT, () => console.log("Listening ..."));
 exports.app = functions.https.onRequest(app);
