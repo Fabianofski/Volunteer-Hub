@@ -2,3 +2,5 @@
 Frontend/src/fbConfig.json
 .vs
 .idea
+Frontend/package.json
+Frontend/package-lock.json

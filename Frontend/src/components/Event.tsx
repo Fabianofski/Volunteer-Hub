@@ -2,51 +2,57 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Route, useParams } from "react-router-dom";
 import "../App.css";
-import "../Event.css"
+import "../Event.css";
+import { EventModel } from "../model/EventModel";
 
-interface EventData{
-  eventId:string;
-  eventName:string;
-  organizer:{
-    uid:string;
-    name:string;
-  }
-  date:string;
-  location:string;
-  about:string;
-  banner:string;
-}
-
- function Event() {
+function Event() {
   const { eventId } = useParams();
-  const [EventData, setEventData] = useState<EventData>();
+  const [EventModel, setEventData] = useState<EventModel>();
 
   useEffect(() => {
     fetch(`/api/eventInformation?eventId=${eventId}`)
       .then((response) => response.json())
       .then((data) => {
-          console.log(data);
-          setEventData(data);
-        });
+        console.log(data);
+        setEventData(data);
+      });
   }, [eventId]);
 
   return (
     <div className="seite">
-    <div className="eventpage">
-      <div className="eventBanner">
-      <img src={EventData?.banner}alt="banner"/>
+      <div className="eventpage">
+        <div className="eventBanner">
+          <img src={EventModel?.banner} alt="banner" />
+        </div>
+        <div className="eventDescription">
+          <div className="eventDescriptionLeft">
+            <h1>{EventModel?.eventName}</h1>
+            <h2>
+              Organizator: <a href="/profile/req.query.uid">{EventModel?.organizer.name}</a>
+            </h2>
+          </div>
+          <div className="eventDescriptionRight">
+            <div></div>
+            <h2>
+              {new Date(EventModel?.date).toLocaleDateString("de-DE")}, {EventModel?.time} Uhr
+            </h2>
+            <h2>
+              {EventModel?.location.street} {EventModel?.location.houseNumber}{" "}
+            </h2>
+            <h2>
+              {EventModel?.location.postalCode} {EventModel?.location.town}
+            </h2>
+          </div>
+        </div>
+        <h3>{EventModel?.about}</h3>
+        <div className="eventDescription">
+          <h2>Freie Plätze: 2/{EventModel?.maxParticipants}</h2>
+        </div>
       </div>
-      <div className="eventDescription">
-       <h1> {EventData?.eventName}</h1>
-        <h2>{EventData?.date}</h2>
-      
-      </div>
-      <h1>{EventData?.about}</h1>
-       </div>
       <div className="participate">
-       <h2>Teilnehmen</h2> 
+        <h2>Teilnehmen</h2>
       </div>
-      </div>
+    </div>
   );
 }
 
