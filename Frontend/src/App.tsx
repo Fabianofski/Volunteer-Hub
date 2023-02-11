@@ -28,7 +28,7 @@ function App() {
         <div className="Router">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/event/:eventId" element={<Event />} />
+            <Route path="/event/:eventId" element={<Event currentUID={currentUID} />} />
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/create" element={<EditEvent currentUID={currentUID} />} />
             <Route path="/edit/:eventId" element={<EditEvent currentUID={currentUID} />} />

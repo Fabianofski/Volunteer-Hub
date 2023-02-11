@@ -17,7 +17,7 @@ async function addToDataBase(thisEventId: string | undefined, userId: string | u
     });
 }
 
-function Event() {
+function Event({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
   const [EventModel, setEventData] = useState<EventModel>();
   const [error, setError] = useState<string>("-");
@@ -35,14 +35,9 @@ function Event() {
       return auth.currentUser?.uid;
     }
   }
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addToDataBase(EventModel?.eventId, getUserId()).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      setError(errorCodes[errorCode] || errorCode);
-    });
+    await addToDataBase(EventModel?.eventId, currentUID);
   };
 
   return (
@@ -55,16 +50,13 @@ function Event() {
           <div className="eventDescriptionLeft">
             <h1>{EventModel?.eventName}</h1>
             <h2>
-              Organizator:{" "}
-              <a href="/profile/" onClick="location.href=this.href+'/'+uid;return false;">
-                {EventModel?.organizer.name}
-              </a>
+              Organizator: <a href={`/profile/${currentUID}`}>{EventModel?.organizer.name}</a>
             </h2>
           </div>
           <div className="eventDescriptionRight">
             <div></div>
             <h2>
-              {new Date(EventModel?.date).toLocaleDateString("de-DE")}, {EventModel?.time} Uhr
+              {new Date(EventModel?.date || "").toLocaleDateString("de-DE")}, {EventModel?.time} Uhr
             </h2>
             <h2>
               {EventModel?.location.street} {EventModel?.location.houseNumber}{" "}
