@@ -9,7 +9,7 @@ import SignUp from "./components/Authentication/SignUp";
 import SignIn from "./components/Authentication/SignIn";
 import React, { useState } from "react";
 import { auth } from "./firebase";
-import EditEvent from "./components/EditEvent";
+import EditEvent from "./components/EditEvent/EditEvent";
 
 function App() {
   const [currentUID, setCurrentUID] = useState<string>("");
@@ -30,8 +30,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/event/:eventId" element={<Event />} />
             <Route path="/profile/:uid" element={<Profile />} />
-            <Route path="/create" element={<EditEvent />} />
-            <Route path="/edit/:eventId" element={<EditEvent />} />
+            <Route path="/create" element={<EditEvent currentUID={currentUID} />} />
+            <Route path="/edit/:eventId" element={<EditEvent currentUID={currentUID} />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
