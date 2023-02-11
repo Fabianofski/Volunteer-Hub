@@ -8,7 +8,7 @@ import { EventModel } from "../model/EventModel";
 import { errorCodes } from "./Authentication/ErrorCodes";
 
 async function addToDataBase(thisEventId: string | undefined, userId: string | undefined) {
-  fetch("http://localhost:3001/api/apply?userId=883jjvnxs&eventId=dafsdf", {
+  fetch(`http://localhost:3001/api/apply?userId=${userId}&eventId=${thisEventId}`, {
     method: "POST"
   })
     .then((response) => response.json())
