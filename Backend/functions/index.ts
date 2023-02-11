@@ -40,8 +40,9 @@ const dummyEvent: EventModel = {
   alias: "Caritas",
   date: new Date("02.12.2023"),
   time: "08:00",
-  maxParticipants: 0,
-  minParticipants: 0,
+  currentParticipants: 4,
+  maxParticipants: 6,
+  minParticipants: 2,
   location: {
     street: "Example Street",
     houseNumber: "34",
