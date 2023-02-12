@@ -24,22 +24,12 @@
   display: flex;
   justify-content: center;
 }
-}
+
 .eventDescription {
   display: flex;
   flex-direction: row;
-  -ms-flex-align: flex-start;
 }
 
-.eventpage h1 {
-  color: white;
-  flex: 1;
-  font-size: 1em;
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  text-align: left;
-  margin: 4;
-}
 .eventpage h3 {
   color: white;
   flex: 1;
@@ -56,14 +46,13 @@
 .eventDescriptionLeft h2 {
   margin: 4px;
   text-align: left;
-  padding-left: 12px;
 }
 .eventDescription h1 {
   color: white;
   font-size: 2em;
+  text-align: left;
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  flex: 1;
   padding-left: 12px;
   margin: 4px;
 }
@@ -95,8 +84,8 @@
   padding-left: 1rem;
 }
 .eventBanner img {
-    width: -webkit-fill-available;
-    height: fit-content;
+  width: -webkit-fill-available;
+  height: fit-content;
 }
 .participate {
   width: auto;
