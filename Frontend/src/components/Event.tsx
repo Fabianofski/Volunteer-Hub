@@ -5,7 +5,6 @@ import { Route, useParams } from "react-router-dom";
 import "../App.css";
 import "../Event.css";
 import { EventModel } from "../model/EventModel";
-import { errorCodes } from "./Authentication/ErrorCodes";
 
 async function addToDataBase(thisEventId: string | undefined, userId: string | undefined) {
   fetch(`http://localhost:3001/api/apply?userId=${userId}&eventId=${thisEventId}`, {
@@ -20,7 +19,6 @@ async function addToDataBase(thisEventId: string | undefined, userId: string | u
 function Event({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
   const [EventModel, setEventData] = useState<EventModel>();
-  const [error, setError] = useState<string>("-");
 
   useEffect(() => {
     fetch(`/api/eventInformation?eventId=${eventId}`)
@@ -50,7 +48,8 @@ function Event({ currentUID }: { currentUID: string }) {
           <div className="eventDescriptionLeft">
             <h1>{EventModel?.eventName}</h1>
             <h2>
-              Organizator: <a href={`/profile/${currentUID}`}>{EventModel?.organizer.name}</a>
+              Organisator:{" "}
+              <a href={`/profile/${EventModel?.organizer.uid}`}>{EventModel?.organizer.name}</a>
             </h2>
           </div>
           <div className="eventDescriptionRight">

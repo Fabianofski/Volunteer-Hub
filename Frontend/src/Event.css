@@ -10,7 +10,7 @@
   width: 60%;
   flex: 1;
   height: auto;
-  background-color: var(--text-color);
+  background-color: #5e5e5e;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -21,6 +21,9 @@
   height: 250px;
   overflow: hidden;
   box-shadow: 2px 2px 10px #000;
+  display: flex;
+  justify-content: center;
+}
 }
 .eventDescription {
   display: flex;
@@ -28,8 +31,6 @@
   -ms-flex-align: flex-start;
 }
 
-.eventDescriptionRight {
-}
 .eventpage h1 {
   color: white;
   flex: 1;
@@ -94,11 +95,11 @@
   padding-left: 1rem;
 }
 .eventBanner img {
-  object-fit: covetop;
-  background: left/cover no-repeat;
+    width: -webkit-fill-available;
+    height: fit-content;
 }
 .participate {
-  width: 10%;
+  width: auto;
   height: auto;
   border-radius: 5px;
   background: linear-gradient(to right, var(--orange-color), var(--yellow-color) 100%);
@@ -107,4 +108,5 @@
   font-size: 1.5em;
   text-align: center;
   color: white;
+  margin: 15px;
 }
