@@ -1,4 +1,4 @@
-import React, { FormEvent, FormEventHandler, ReactElement, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../App.css";
 import "./EditEvent.css";
@@ -133,8 +133,12 @@ function EditView({
         name: ""
       }
     };
-    fetch(`http://localhost:3001/api/createEvent`, {
-      method: "POST",
+    const endpoint =
+      eventId === ""
+        ? `http://localhost:3001/api/createEvent`
+        : `http://localhost:3001/api/editEvent`;
+    fetch(endpoint, {
+      method: eventId === "" ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json"
       },

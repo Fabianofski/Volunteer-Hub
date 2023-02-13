@@ -80,6 +80,7 @@ app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) =
 });
 
 app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) => {
+  console.log("create");
   const event: EventModel = req.body as EventModel;
   console.log(event);
   res.send({ status: "Success" });
@@ -87,6 +88,7 @@ app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) =>
 
 app.put("/api/editEvent/", jsonParser, async (req: Request, res: Response) => {
   const event: EventModel = req.body as EventModel;
+  console.log("edit");
   console.log(event);
   res.send({ status: "Success" });
 });
