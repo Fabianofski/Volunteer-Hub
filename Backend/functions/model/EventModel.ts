@@ -1,7 +1,7 @@
 export interface EventModel {
   eventId: string;
   eventName: string;
-  date: Date;
+  date: string;
   time: string;
   alias: string;
   organizer: Organizer;

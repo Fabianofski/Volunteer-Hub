@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, FormEventHandler, ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../App.css";
 import "./EditEvent.css";
@@ -7,55 +7,52 @@ import InputField from "../Authentication/InputField";
 import { InputValidation } from "../Authentication/InputValidation";
 import { EventModel } from "../../model/EventModel";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-import { defaultMarkdown } from "./defaultMarkdown";
 import { commands } from "./MarkdownCommands";
-
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
+import { defaultEvent } from "./defaultEvent";
 
 function EditEvent({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
-
-  useEffect(() => {
-    // Confirmation before leaving site to prevent accidental data loss
-    const unloadCallback = (event: any) => {
-      event.preventDefault();
-      event.returnValue = "";
-      return "";
-    };
-
-    window.addEventListener("beforeunload", unloadCallback);
-    return () => window.removeEventListener("beforeunload", unloadCallback);
-  }, []);
-
+  addConfirmationBeforeReload(currentUID);
   const [mode, setMode] = useState("edit");
-  const [event, setEvent] = useState<EventModel>({
-    maxParticipants: 0,
-    minParticipants: 0,
-    alias: "",
-    time: "",
-    about: defaultMarkdown,
-    banner: "",
-    date: tomorrow,
-    eventId: "",
-    eventName: "",
-    location: {
-      street: "",
-      houseNumber: "",
-      postalCode: 0,
-      town: ""
-    },
-    organizer: {
-      uid: currentUID,
-      name: ""
-    }
-  });
-  if (eventId) console.log(eventId);
+  const [event, setEvent] = useState<EventModel>(defaultEvent);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  useEffect(() => {
+    if (eventId === undefined) setDataLoaded(true);
+    else
+      fetch(`/api/eventInformation?eventId=${eventId}&userId=${currentUID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setEvent(data);
+          setDataLoaded(true);
+        });
+  }, [eventId, setEvent, setDataLoaded]);
 
   return (
     <div className={"editPage"}>
-      <SetViewMode setMode={setMode} />
-      {mode === "edit" ? <EditView event={event} /> : <h1>Preview</h1>}
+      {currentUID === "" ? (
+        <>
+          <h2> Du musst angemeldet sein bevor du ein Event erstellen kannst </h2>
+          <a href="/login">
+            <img src="/SignIn.png" alt="SignIn" width="180" height="70" />
+          </a>
+        </>
+      ) : (
+        <>
+          {dataLoaded ? (
+            <>
+              <SetViewMode setMode={setMode} />
+              {mode === "edit" ? (
+                <EditView event={event} eventId={eventId || ""} currentUID={currentUID} />
+              ) : (
+                <h1>Preview</h1>
+              )}
+            </>
+          ) : (
+            <h2>Loading..</h2>
+          )}
+        </>
+      )}
     </div>
   );
 }
@@ -73,10 +70,18 @@ function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
   );
 }
 
-function EditView({ event }: { event: EventModel }) {
+function EditView({
+  event,
+  eventId,
+  currentUID
+}: {
+  event: EventModel;
+  eventId: string;
+  currentUID: string;
+}) {
   const [eventName, setEventName] = useState<string>(event.eventName);
   const [organizer, setOrganizer] = useState<string>(event.alias);
-  const [date, setDate] = useState<string>(event.date.toISOString().substring(0, 10));
+  const [date, setDate] = useState<string>(event.date);
   const [time, setTime] = useState<string>(event.time);
   const [minParticipantNumber, setMinParticipantNumber] = useState<number>(event.minParticipants);
   const [maxParticipantNumber, setMaxParticipantNumber] = useState<number>(event.maxParticipants);
@@ -104,6 +109,42 @@ function EditView({ event }: { event: EventModel }) {
     postalCode,
     town
   ]);
+
+  const submitForm = (e: FormEvent) => {
+    e.preventDefault();
+    const event: EventModel = {
+      maxParticipants: maxParticipantNumber,
+      minParticipants: minParticipantNumber,
+      alias: organizer,
+      time: time,
+      about: description,
+      banner: "",
+      date: date,
+      eventId: eventId,
+      eventName: eventName,
+      location: {
+        street: street,
+        houseNumber: houseNumber,
+        postalCode: postalCode,
+        town: town
+      },
+      organizer: {
+        uid: currentUID,
+        name: ""
+      }
+    };
+    fetch(`http://localhost:3001/api/createEvent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(event)
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      });
+  };
 
   return (
     <div className={"editView"}>
@@ -174,7 +215,7 @@ function EditView({ event }: { event: EventModel }) {
             setValue={setHouseNumber}
             type={"text"}
             placeholder={"Nummer"}
-            isInputValid={inputValidation.inputIsNotEmpty}
+            isInputValid={inputValidation.inputIsGreaterThanZero}
             className={"col-span-1"}
           />
           <InputField
@@ -182,7 +223,7 @@ function EditView({ event }: { event: EventModel }) {
             setValue={setPostalCode}
             type={"number"}
             placeholder={"PLZ"}
-            isInputValid={inputValidation.inputIsNotEmpty}
+            isInputValid={inputValidation.inputIsGreaterThanZero}
             className={"col-span-1"}
           />
           <InputField
@@ -207,12 +248,28 @@ function EditView({ event }: { event: EventModel }) {
         <button
           type="submit"
           disabled={!allInputsValid}
-          title="Please fill in all the required fields">
-          Create
+          title="Please fill in all the required fields"
+          onClick={submitForm}>
+          {eventId === "" ? "Create" : "Apply"}
         </button>
       </form>
     </div>
   );
+}
+
+function addConfirmationBeforeReload(currentUID: string) {
+  useEffect(() => {
+    // Confirmation before leaving site to prevent accidental data loss
+    const unloadCallback = (event: any) => {
+      if (currentUID !== "") {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, [currentUID]);
 }
 
 export default EditEvent;

@@ -2,6 +2,8 @@ import { Response, Request } from "express";
 import { User } from "./model/User";
 import { EventModel } from "./model/EventModel";
 import { EventFilter } from "./model/EventFilter";
+import { defaultMarkdown } from "./defaultMarkdown";
+
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -38,18 +40,17 @@ const dummyEvent: EventModel = {
     name: "Peter Klaus"
   },
   alias: "Caritas",
-  date: new Date("02.12.2023"),
+  date: "2023-02-14",
   time: "08:00",
-  maxParticipants: 0,
-  minParticipants: 0,
+  maxParticipants: 10,
+  minParticipants: 3,
   location: {
     street: "Example Street",
     houseNumber: "34",
     postalCode: 13566,
     town: "Berlin"
   },
-  about:
-    "Am 02.03.2023 findet in Berlin ein Floorball-Turnier statt. Erlebe spannende Spiele und unterstütze die Teilnehmer bei ihrem Kampf um den ersten Platz. Treffe Gleichgesinnte und genieße die Atmosphäre des Turniers. Komm vorbei und sei Teil des Floorball-Erlebnisses in Berlin.",
+  about: defaultMarkdown,
   banner:
     "https://majers-weinscheuer.de/wp-content/uploads/2021/01/Mathaisemarkt-at-home-majers-weinscheuer-schriesheim.jpg"
 };
@@ -75,6 +76,18 @@ app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Re
 app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) => {
   const user: User = req.body as User;
   console.log(user);
+  res.send({ status: "Success" });
+});
+
+app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) => {
+  const event: EventModel = req.body as EventModel;
+  console.log(event);
+  res.send({ status: "Success" });
+});
+
+app.put("/api/editEvent/", jsonParser, async (req: Request, res: Response) => {
+  const event: EventModel = req.body as EventModel;
+  console.log(event);
   res.send({ status: "Success" });
 });
 

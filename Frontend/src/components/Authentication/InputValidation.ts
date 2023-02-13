@@ -1,4 +1,5 @@
 import { NavLinkProps } from "react-router-dom";
+import { isNumberObject } from "util/types";
 
 export interface Validation {
   valid: boolean;
@@ -64,6 +65,6 @@ export class InputValidation {
 
   inputIsGreaterThanZero(input: string): Validation {
     const num = Number(input);
-    return { valid: num >= 1 && num <= 499, info: [] };
+    return { valid: num >= 1, info: [] };
   }
 }
