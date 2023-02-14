@@ -37,10 +37,6 @@ button:disabled {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.col-span-2 {
-  grid-column: span 2;
-}
-
 input {
   font-family: "Lato", sans-serif;
   color: #525252;

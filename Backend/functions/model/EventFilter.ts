@@ -1,5 +1,5 @@
 export type EventFilter = {
-  amount: string;
-  locations: string;
+  amount?: string;
+  locations?: string;
   // TODO: Add needed Filter Options
 };

@@ -9,6 +9,7 @@ import SignUp from "./components/Authentication/SignUp";
 import SignIn from "./components/Authentication/SignIn";
 import React, { useState } from "react";
 import { auth } from "./firebase";
+import EditEvent from "./components/EditEvent";
 
 /* Test-Account
     dummy@d.de
@@ -33,11 +34,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/event/:eventId" element={<Event />} />
             <Route path="/profile/:uid" element={<Profile />} />
+            <Route path="/create" element={<EditEvent />} />
+            <Route path="/edit/:eventId" element={<EditEvent />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
-        <Footer />
+        {/*<Footer />*/}
       </div>
     </Router>
   );
