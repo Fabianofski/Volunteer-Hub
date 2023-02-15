@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import "./NavBar.css";
+import "./Nav.css";
 import { auth } from "../firebase";
 
 function Nav({ currentUID }: { currentUID: string }) {
@@ -12,25 +12,27 @@ function Nav({ currentUID }: { currentUID: string }) {
           VolunteerHub
         </a>
       </div>
-      <div></div>
-      {/* <a href="#search">Search</a>
-      <a href="/about">About</a>
-      <a href="/privacy-policy">Privacy Policy</a> */}
-      <a href="/">Home</a>
-      <a href="/events">Events</a>
-      <a href="/myevents">My Events</a>
-      <a href="/about">About</a>
-      {currentUID === "" ? (
-        <a href="/login">
-          <div className="signInBtn">Sign In</div>
-          {/* {" "}
-          <img className="signinBtn" src="/signinBtn.svg" alt="SignIn" />{" "} */}
-        </a>
-      ) : (
-        <a className="logOut" onClick={() => auth.signOut()} href={"#logout"}>
-          Logout
-        </a>
-      )}
+      <input id="menuBtn" type="checkbox"></input>
+      <div className="list">
+        {/* <a href="#search">Search</a>
+        <a href="/about">About</a>
+        <a href="/privacy-policy">Privacy Policy</a> */}
+        <a href="/">Home</a>
+        <a href="/events">Events</a>
+        <a href="/myevents">My Events</a>
+        <a href="/about">About</a>      
+        {currentUID === "" ? (
+          <a href="/login">
+            <div className="signInBtn">Sign In</div>
+            {/* {" "}
+            <img className="signinBtn" src="/signinBtn.svg" alt="SignIn" />{" "} */}
+          </a>
+        ) : (
+          <a className="logOut" onClick={() => auth.signOut()} href={"#logout"}>
+            Logout
+          </a>
+        )}
+      </div>
     </div>
   );
 }

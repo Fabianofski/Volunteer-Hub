@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: end;
+  
   gap: 5%;
   padding: 0.8rem 1rem 0.8rem 1rem;
   background: linear-gradient(to right, var(--orange-color), var(--yellow-color) 100%);
@@ -18,10 +19,23 @@
   background-size: 100% 3px;
   background-repeat: repeat-x;
 }
+
+.list {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  
+  gap: 50px;
+}
+
 .logo {
+  min-width: 185px;
+
+  height: 100%;
   margin-right: auto;
   font-size: x-large;
-  flex-grow: 0.8;
+  flex-grow: 0;
   text-align: left;
   color: var(--text-color);
 }
@@ -36,9 +50,11 @@
   padding: 14px 16px;
   text-align: center;
 }
+
 .nav a {
   text-decoration: none;
 }
+
 /* unvisited link */
 .nav a:link,
 .nav a:visited {
@@ -83,4 +99,53 @@
 
 .logOut {
   margin-right: calc(5vw - 2.4rem);
+}
+
+#menuBtn {
+  display: none;
+  width: 25px;
+  height: 25px;
+  background-color: crimson;
+}
+
+
+@media (max-width: 800px) {
+  .nav {
+    background-color: red;
+  }
+
+  .list {    
+    position: absolute;
+    top: 3.6rem;
+    right: 0;
+    width: 100px;
+    height: auto;
+
+    display: none;
+    gap: 20px;
+    justify-content: start;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgb(221, 221, 221);
+
+    padding: 10px 0px 10px 20px;
+
+  }
+/* 
+  .list a {
+    border: 2px solid black
+  } */
+
+  #menuBtn {
+    display: block;
+  }
+
+  #menuBtn:checked + .list {
+    display: flex;
+    
+  }
+  
+  .signInBtn {
+    width: 70px;
+  }
 }
