@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Nav from "./components/Nav";
+import Nav from "./components/NavBar/Nav";
 import Footer from "./components/Footer";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Profile from "./components/Profile";
 import Event from "./components/Event";
 import SignUp from "./components/Authentication/SignUp";
@@ -11,6 +11,10 @@ import React, { useState } from "react";
 import { auth } from "./firebase";
 import EditEvent from "./components/EditEvent/EditEvent";
 
+/* Test-Account
+    dummy@d.de
+    Pw1234!
+*/
 function App() {
   const [currentUID, setCurrentUID] = useState<string>("");
   auth.onAuthStateChanged(function (user) {

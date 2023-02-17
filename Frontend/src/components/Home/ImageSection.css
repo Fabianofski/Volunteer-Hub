@@ -1,0 +1,40 @@
+.main-container {
+  /* background-color: aqua; */
+  height: 80vh;
+  width: 110vh;
+  display: flex;
+
+  justify-content: space-between;
+  gap: 1%;
+}
+
+.main-container div {
+  position: relative;
+
+  width: 33.33%;
+  transition: all 0.2s;
+  flex-shrink: 1;
+}
+
+.main-container div:hover {
+  width: 70%;
+  flex-shrink: 0;
+}
+
+.main-container img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 20px;
+  object-fit: cover;
+  transition: all 0.2s;
+}
+
+/* .main-container .image3 img {
+  object-position: center center;
+}
+
+.main-container .image3 img:hover {
+  object-position: left center;
+} */
