@@ -2,3 +2,5 @@
 Frontend/src/fbConfig.json
 .vs
 .idea
+Frontend/dist
+Frontend/.firebase/hosting.ZGlzdA.cache

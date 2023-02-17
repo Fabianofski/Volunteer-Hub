@@ -39,7 +39,7 @@ function InputField({
   return (
     <div className={className}>
       <label className="title">{title || placeholder}</label>
-      <div className={`inputField  + ${validState}`}>
+      <div className={`inputField ${validState}`}>
         <input
           type={type}
           defaultValue={value}
