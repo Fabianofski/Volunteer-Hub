@@ -10,7 +10,7 @@ function Nav({ currentUID }: { currentUID: string }) {
     <div className="nav">
       <div className="logo">
         <a href="/">
-          <img src="logo.svg" width={20}></img>
+          <img src="/logo.svg" width={20}></img>
           VolunteerHub
         </a>
       </div>
