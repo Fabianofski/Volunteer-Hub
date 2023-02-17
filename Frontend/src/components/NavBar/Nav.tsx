@@ -1,9 +1,11 @@
-import React from "react";
-import "../App.css";
+import React, { useState } from "react";
+import "../../App.css";
 import "./Nav.css";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
 function Nav({ currentUID }: { currentUID: string }) {
+  const [active, setActive] = useState(false);
+
   return (
     <div className="nav">
       <div className="logo">
@@ -12,15 +14,23 @@ function Nav({ currentUID }: { currentUID: string }) {
           VolunteerHub
         </a>
       </div>
-      <input id="menuBtn" type="checkbox"></input>
-      <div className="list">
+      <div
+        className={`nav-icon ${active ? "open" : ""}`}
+        // onClick={() => document.querySelector(".nav-icon")?.classList.toggle("active")}>
+        onClick={() => setActive(!active)}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className={`list ${active ? "show" : ""}`}>
         {/* <a href="#search">Search</a>
         <a href="/about">About</a>
         <a href="/privacy-policy">Privacy Policy</a> */}
         <a href="/">Home</a>
         <a href="/events">Events</a>
         <a href="/myevents">My Events</a>
-        <a href="/about">About</a>      
+        <a href="/about">About</a>
         {currentUID === "" ? (
           <a href="/login">
             <div className="signInBtn">Sign In</div>

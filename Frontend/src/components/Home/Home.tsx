@@ -8,10 +8,10 @@ function Home() {
   return (
     <div className="layout">
       {/* <h1 style={{ color: "red" }}>TODO!</h1> */}
-      {/* <div className="headings">
+      <div className="headings">
         <h1>Werde Teil der Lösung!</h1>
         <h2>Starte jetzt als Freiwilliger Helfer.</h2>
-      </div> */}
+      </div>
       {/* <ImageSection /> */}
       <div className="section1"></div>
       <div className="section2"></div>
