@@ -66,7 +66,7 @@ app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Re
   console.log(req.body);
   const eventFilters = req.body as EventFilter;
   const events: EventModel[] = [];
-  const amount: number = Number(eventFilters?.amount || 5);
+  const amount: number = Number(eventFilters?.amount || 6);
   for (let i = 0; i < amount; i++) {
     events.push(dummyEvent);
   }
