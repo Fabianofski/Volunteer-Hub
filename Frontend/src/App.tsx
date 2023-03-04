@@ -36,7 +36,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/events/" element={<Events />} />
-            <Route path="/event/:eventId" element={<Event />} />
+            <Route path="/event/:eventId" element={<Event currentUID={currentUID} />} />
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/create" element={<EditEvent currentUID={currentUID} />} />
             <Route path="/edit/:eventId" element={<EditEvent currentUID={currentUID} />} />
