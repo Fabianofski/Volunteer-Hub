@@ -5,6 +5,7 @@ tomorrow.setDate(tomorrow.getDate() + 1);
 export const defaultEvent = {
   maxParticipants: 0,
   minParticipants: 0,
+  currentParticipants: 0,
   alias: "",
   time: "",
   about: defaultMarkdown,

@@ -44,6 +44,7 @@ const dummyEvent: EventModel = {
   time: "08:00",
   maxParticipants: 10,
   minParticipants: 3,
+  currentParticipants: 0,
   location: {
     street: "Example Street",
     houseNumber: "34",

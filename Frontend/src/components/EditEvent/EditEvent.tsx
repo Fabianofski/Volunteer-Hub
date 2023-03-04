@@ -9,6 +9,7 @@ import { EventModel } from "../../model/EventModel";
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { commands } from "./MarkdownCommands";
 import { defaultEvent } from "./defaultEvent";
+import Event from "../Event";
 
 function EditEvent({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
@@ -26,7 +27,7 @@ function EditEvent({ currentUID }: { currentUID: string }) {
           setEvent(data);
           setDataLoaded(true);
         });
-  }, [eventId, setEvent, setDataLoaded]);
+  }, [eventId, setDataLoaded]);
 
   return (
     <div className={"editPage"}>
@@ -43,9 +44,14 @@ function EditEvent({ currentUID }: { currentUID: string }) {
             <>
               <SetViewMode setMode={setMode} />
               {mode === "edit" ? (
-                <EditView event={event} eventId={eventId || ""} currentUID={currentUID} />
+                <EditView
+                  event={event}
+                  setEvent={setEvent}
+                  eventId={eventId || ""}
+                  currentUID={currentUID}
+                />
               ) : (
-                <h1>Preview</h1>
+                <Event currentUID={currentUID} event={event} />
               )}
             </>
           ) : (
@@ -60,10 +66,10 @@ function EditEvent({ currentUID }: { currentUID: string }) {
 function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
   return (
     <div className={"viewMode"}>
-      <a href="Frontend/src/components#edit" onClick={() => setMode("edit")}>
+      <a href="#edit" onClick={() => setMode("edit")}>
         Edit
       </a>
-      <a href="Frontend/src/components#preview" onClick={() => setMode("preview")}>
+      <a href="#preview" onClick={() => setMode("preview")}>
         Preview
       </a>
     </div>
@@ -72,10 +78,12 @@ function SetViewMode({ setMode }: { setMode: React.Dispatch<string> }) {
 
 function EditView({
   event,
+  setEvent,
   eventId,
   currentUID
 }: {
   event: EventModel;
+  setEvent: React.Dispatch<EventModel>;
   eventId: string;
   currentUID: string;
 }) {
@@ -96,7 +104,30 @@ function EditView({
   useEffect(() => {
     const unsetForm = document.querySelector(".unset");
     const invalidForm = document.querySelector(".invalid");
-    setAllInputsValid(invalidForm === null && unsetForm === null);
+    const valid = invalidForm === null && unsetForm === null;
+    setAllInputsValid(valid);
+    setEvent({
+      maxParticipants: maxParticipantNumber,
+      minParticipants: minParticipantNumber,
+      currentParticipants: 0,
+      alias: organizer,
+      time: time,
+      about: description,
+      banner: "",
+      date: date,
+      eventId: eventId,
+      eventName: eventName,
+      location: {
+        street: street,
+        houseNumber: houseNumber,
+        postalCode: postalCode,
+        town: town
+      },
+      organizer: {
+        uid: currentUID,
+        name: ""
+      }
+    });
   }, [
     eventName,
     organizer,
@@ -107,7 +138,8 @@ function EditView({
     street,
     houseNumber,
     postalCode,
-    town
+    town,
+    description
   ]);
 
   const submitForm = (e: FormEvent) => {
@@ -115,6 +147,7 @@ function EditView({
     const event: EventModel = {
       maxParticipants: maxParticipantNumber,
       minParticipants: minParticipantNumber,
+      currentParticipants: 0,
       alias: organizer,
       time: time,
       about: description,

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   gap: 1em;
+
+  width: 99vw;
 }
 .eventpage {
   border-radius: 10px;
@@ -15,7 +17,9 @@
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
+  margin: 2rem 0 2rem 0;
 }
+
 .eventBanner {
   width: auto;
   height: 250px;
@@ -23,6 +27,10 @@
   box-shadow: 2px 2px 10px #000;
   display: flex;
   justify-content: center;
+}
+
+.eventContent {
+  padding: 1rem;
 }
 
 .eventDescription {
@@ -37,8 +45,6 @@
   font-family: "Lato", sans-serif;
   font-weight: 400;
   text-align: left;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 .eventDescriptionLeft {
   flex: 1;
@@ -53,12 +59,10 @@
   text-align: left;
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  padding-left: 12px;
   margin: 4px;
 }
 .eventDescriptionRight h2 {
   text-align: right;
-  padding-right: 1rem;
   margin: 4px;
 }
 .eventDescriptionLeft a,
@@ -81,7 +85,6 @@
   font-family: "Lato", sans-serif;
   font-weight: 700;
   flex: 1;
-  padding-left: 1rem;
 }
 .eventBanner img {
   width: -webkit-fill-available;
