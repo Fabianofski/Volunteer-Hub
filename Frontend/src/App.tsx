@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import EditEvent from "./components/EditEvent/EditEvent";
 import Events from "./components/Events/Events";
 import About from "./components/About";
+import MyEvents from "./components/Events/MyEvents";
 
 /* Test-Account
     dummy@d.de
@@ -42,6 +43,7 @@ function App() {
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
+            <Route path="/myEvents" element={<MyEvents />} />
           </Routes>
         </div>
         {/*<Footer />*/}

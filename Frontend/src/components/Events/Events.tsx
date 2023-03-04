@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { EventModel } from "../../model/EventModel";
 import "./Events.css";
+import EventCard from "./EventCard";
 
 function Events() {
   const [events, setEvents] = useState<EventModel[]>([]);
@@ -19,18 +20,7 @@ function Events() {
       {events.map((event) => {
         return (
           <a href={`/event/${event.eventId}`}>
-            <div className={"event"} style={{ backgroundImage: `url(${event.banner})` }}>
-              <div className={"backdrop"}></div>
-              <div className={"content"}>
-                <h2> {event.eventName} </h2>
-                <div className={"details"}>
-                  <p className={"organizer"}>{event.organizer.name}</p>
-                  <p className={"date"}>{event.date}</p>
-                  <p className={"town"}>{event.location.town}</p>
-                </div>
-                <p>{event.about}</p>
-              </div>
-            </div>
+            <EventCard event={event} />
           </a>
         );
       })}

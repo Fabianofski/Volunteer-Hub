@@ -1,0 +1,12 @@
+.myEvents {
+  display: flex;
+  gap: 1rem;
+
+  overflow-x: scroll;
+
+  width: 95vw;
+}
+
+.myEvents a {
+  text-decoration: none;
+}
