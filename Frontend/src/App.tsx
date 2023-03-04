@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { auth } from "./firebase";
 import EditEvent from "./components/EditEvent/EditEvent";
 import Events from "./components/Events/Events";
+import About from "./components/About";
 
 /* Test-Account
     dummy@d.de
@@ -40,6 +41,7 @@ function App() {
             <Route path="/edit/:eventId" element={<EditEvent currentUID={currentUID} />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
         {/*<Footer />*/}
