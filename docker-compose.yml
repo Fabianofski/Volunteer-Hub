@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD}
+    ports:
+      - '3306:3306'
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./Backend/functions"
+    volumes:
+      - /app/node_modules
+      - ./Backend/functions:/app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: "PRODUCTION"
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./Frontend
+    volumes:
+      - /app/node_modules
+      - ./Frontend:/app
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "3000:3000"
