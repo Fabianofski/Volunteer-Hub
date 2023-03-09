@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
 
-  db:
+  mssql:
     image: mysql
     restart: unless-stopped
     env_file: .env
@@ -15,14 +15,17 @@ services:
   api:
     build:
       dockerfile: Dockerfile
-      context: "./Backend/functions"
+      context: "./Backend/"
     volumes:
       - /app/node_modules
-      - ./Backend/functions:/app
+      - ./Backend:/app
     restart: unless-stopped
     ports:
       - "3001:3001"
+    depends_on:
+      - mssql
     environment:
+      SQL_HOST: "mssql"
       NODE_ENV: "PRODUCTION"
 
   client:

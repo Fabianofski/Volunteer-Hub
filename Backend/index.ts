@@ -1,13 +1,14 @@
+require("dotenv").config();
 import { Response, Request } from "express";
 import { User } from "./model/User";
 import { EventModel } from "./model/EventModel";
 import { EventFilter } from "./model/EventFilter";
 import { defaultMarkdown } from "./defaultMarkdown";
 
-const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+const mysql = require("./mysql");
 
 const app = express();
 const PORT = 3001;
@@ -104,4 +105,3 @@ app.post(
 );
 
 app.listen(PORT, () => console.log("Listening ..."));
-exports.app = functions.https.onRequest(app);
