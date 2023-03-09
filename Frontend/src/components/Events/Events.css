@@ -10,3 +10,12 @@
 .events a {
   text-decoration: none;
 }
+
+.eventsPage {
+  width: auto;
+  height: 100%;
+}
+
+.eventsPage h3, .eventsPage h1 {
+  color: var(--text-color);
+}

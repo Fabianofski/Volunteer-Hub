@@ -16,14 +16,18 @@ function Events() {
   }, []);
 
   return (
-    <div className={"events"}>
-      {events.map((event) => {
-        return (
-          <a href={`/event/${event.eventId}`}>
-            <EventCard event={event} />
-          </a>
-        );
-      })}
+    <div className="eventsPage">
+      <h1>Aktuelle Events</h1>
+      <h3>Melde dich hier für zukünftige Events an.</h3>
+      <div className={"events"}>
+        {events.map((event) => {
+          return (
+            <a href={`/event/${event.eventId}`}>
+              <EventCard event={event} />
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }
