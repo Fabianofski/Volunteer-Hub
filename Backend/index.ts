@@ -8,7 +8,7 @@ import { defaultMarkdown } from "./defaultMarkdown";
 const express = require("express");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
-const mysql = require("./mysql");
+// const mysql = require("./mysql");
 
 const app = express();
 const PORT = 3001;
