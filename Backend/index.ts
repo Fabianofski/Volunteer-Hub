@@ -33,35 +33,10 @@ app.get("/api/profileInformation", async (req: Request<{ uid: string }>, res: Re
   });
 });
 
-const dummyEvent: EventModel = {
-  eventId: "7434672",
-  eventName: "Floorball Turnier",
-  organizer: {
-    uid: "534jkkl",
-    name: "Peter Klaus"
-  },
-  alias: "Caritas",
-  date: "2023-02-14",
-  time: "08:00",
-  maxParticipants: 10,
-  minParticipants: 3,
-  currentParticipants: 0,
-  location: {
-    street: "Example Street",
-    houseNumber: "34",
-    postalCode: 13566,
-    town: "Berlin"
-  },
-  about: defaultMarkdown,
-  banner:
-    "https://majers-weinscheuer.de/wp-content/uploads/2021/01/Mathaisemarkt-at-home-majers-weinscheuer-schriesheim.jpg"
-};
-
 app.get("/api/eventInformation", async (req: Request<{ eventId: string }>, res: Response) => {
   const eventId: string = <string>req.query.eventId;
-  let dummy = dummyEvent;
-  dummy.eventId = eventId ? eventId : "";
-  res.json(dummy);
+  const event = await mongo.getDocument("events", { _id: eventId });
+  res.json(event);
 });
 
 app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Response) => {
@@ -79,16 +54,17 @@ app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) =
 app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) => {
   console.log("create");
   const event: EventModel = req.body as EventModel;
-  await mongo.createEvent(event);
+  await mongo.updateEvent(event, "456");
   res.send({ status: "Success" });
 });
 
 app.put("/api/editEvent/", jsonParser, async (req: Request, res: Response) => {
   const event: EventModel = req.body as EventModel;
-  console.log("edit");
-  console.log(event);
+  console.log(event._id);
+  await mongo.updateEvent(event, event._id);
   res.send({ status: "Success" });
 });
+
 app.post(
   "/api/apply/",
   async (req: Request<{ userId: string; eventId: string }>, res: Response) => {

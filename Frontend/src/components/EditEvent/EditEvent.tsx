@@ -107,6 +107,7 @@ function EditView({
     const valid = invalidForm === null && unsetForm === null;
     setAllInputsValid(valid);
     setEvent({
+      _id: eventId,
       maxParticipants: maxParticipantNumber,
       minParticipants: minParticipantNumber,
       currentParticipants: 0,
@@ -115,7 +116,6 @@ function EditView({
       about: description,
       banner: "",
       date: date,
-      eventId: eventId,
       eventName: eventName,
       location: {
         street: street,
@@ -153,7 +153,7 @@ function EditView({
       about: description,
       banner: "",
       date: date,
-      eventId: eventId,
+      _id: eventId,
       eventName: eventName,
       location: {
         street: street,
@@ -295,6 +295,7 @@ function EditView({
 }
 
 function addConfirmationBeforeReload(currentUID: string) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     // Confirmation before leaving site to prevent accidental data loss
     const unloadCallback = (event: any) => {

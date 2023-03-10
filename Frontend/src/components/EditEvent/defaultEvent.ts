@@ -3,6 +3,7 @@ const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 
 export const defaultEvent = {
+  _id: "",
   maxParticipants: 0,
   minParticipants: 0,
   currentParticipants: 0,
