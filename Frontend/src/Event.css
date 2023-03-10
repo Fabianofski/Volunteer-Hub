@@ -1,36 +1,24 @@
-.seite {
+.eventPage {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 50px;
   gap: 1em;
 }
-.eventpage {
+.eventBox {
   border-radius: 10px;
   border-color: black;
-  width: 60%;
+  width: 900px;
   flex: 1;
   height: auto;
   background-color: #5e5e5e;
+  box-shadow: 2px 2px 10px #898989;
   display: flex;
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
 }
-.eventBanner {
-  width: auto;
-  height: 250px;
-  overflow: hidden;
-  box-shadow: 2px 2px 10px #000;
-  display: flex;
-  justify-content: center;
-}
-
-.eventDescription {
-  display: flex;
-  flex-direction: row;
-}
-
-.eventpage h3 {
+.eventBox h3 {
   color: white;
   flex: 1;
   font-size: 1em;
@@ -40,12 +28,38 @@
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.eventDescriptionLeft {
-  flex: 1;
+.eventBannerBox {
+  width: 900px;
+  height: 250px;
+  overflow: hidden;
+  box-shadow: 2px 2px 10px #2e2e2e;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  position: relative;
 }
-.eventDescriptionLeft h2 {
-  margin: 4px;
-  text-align: left;
+.eventBannerContent {
+  position: relative;
+  width: 900px;
+  top: 0;
+  left: 0;
+}
+.eventBannerArrow {
+  width: 40px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.eventBannerImg {
+  width: -webkit-fill-available;
+  position: relative;
+  height: fit-content;
+}
+
+.eventDescription {
+  display: flex;
+  flex-direction: row;
 }
 .eventDescription h1 {
   color: white;
@@ -56,10 +70,20 @@
   padding-left: 12px;
   margin: 4px;
 }
-.eventDescriptionRight h2 {
-  text-align: right;
-  padding-right: 1rem;
+.eventDescription h2 {
+  color: white;
+  font-size: 1em;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  flex: 1;
+  padding-left: 1rem;
+}
+.eventDescriptionLeft {
+  flex: 1;
+}
+.eventDescriptionLeft h2 {
   margin: 4px;
+  text-align: left;
 }
 .eventDescriptionLeft a,
 .eventDescriptionLeft a:visited,
@@ -75,22 +99,20 @@
   margin: 0;
 }
 
-.eventDescription h2 {
-  color: white;
-  font-size: 1em;
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
-  flex: 1;
-  padding-left: 1rem;
+.eventDescriptionRight h2 {
+  text-align: right;
+  padding-right: 1rem;
+  margin: 4px;
 }
-.eventBanner img {
-  width: -webkit-fill-available;
-  height: fit-content;
-}
+
 .participate {
   width: auto;
-  height: auto;
-  border-radius: 5px;
+  height: 45px;
+  border-radius: 10px;
+  border: 0ex;
+  box-shadow: 2px 2px 10px #898989;
+  display: flex;
+  align-items: center;
   background: linear-gradient(to right, var(--orange-color), var(--yellow-color) 100%);
 }
 .participate h2 {

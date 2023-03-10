@@ -15,7 +15,7 @@ async function addToDataBase(thisEventId: string | undefined, userId: string | u
       console.log("Success:", result);
     });
 }
-
+//Studium: Biologie, Literatur, Parnotonologie oder so
 function Event({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
   const [EventModel, setEventData] = useState<EventModel>();
@@ -39,10 +39,15 @@ function Event({ currentUID }: { currentUID: string }) {
   };
 
   return (
-    <div className="seite">
-      <div className="eventpage">
-        <div className="eventBanner">
-          <img src={EventModel?.banner} alt="banner" />
+    <div className="eventPage">
+      <div className="eventBox">
+        <div className="eventBannerBox">
+          <div className="eventBannerContent">
+            <img className="eventBannerImg" src={EventModel?.banner} alt="banner" />
+            <a href="/">
+              <img className="eventBannerArrow" src="/arrow.png" alt="banner" />
+            </a>
+          </div>
         </div>
         <div className="eventDescription">
           <div className="eventDescriptionLeft">
