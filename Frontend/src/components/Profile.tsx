@@ -46,11 +46,11 @@ function Profile() {
       <div className="aboutmeEvents">
         <div className="aboutme">
           {" "}
-          <h3>Über mich:</h3>
+          <h2>Über mich:</h2>
           <p>Geburtsdatum: {profileData?.dateOfBirth}</p>
         </div>
         <div className="pastEvents">
-          <h3>Hier habe ich teilgenommen:</h3>
+          <h2>Hier habe ich teilgenommen:</h2>
         </div>
       </div>
     </div>
