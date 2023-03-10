@@ -1,5 +1,6 @@
 import { EventModel } from "./model/EventModel";
 import { EventFilter } from "./model/EventFilter";
+import { User } from "./model/User";
 
 const { MongoClient } = require("mongodb");
 
@@ -14,6 +15,20 @@ async function updateEvent(event: EventModel, id: string | undefined = undefined
     if (id !== undefined)
       await collection.updateOne({ _id: id }, { $set: event }, { upsert: true });
     else await collection.insertOne(event);
+
+    await client.close();
+  } catch (e) {
+    console.error("Error adding Event: ", e);
+  }
+}
+
+async function createUser(user: User) {
+  try {
+    const client = new MongoClient(uri);
+
+    const db = client.db("volunteer-hub");
+    const collection = db.collection("users");
+    await collection.updateOne({ _id: user._id }, { $set: user }, { upsert: true });
 
     await client.close();
   } catch (e) {
@@ -58,4 +73,4 @@ async function getDocument(collectionName: string, filter: object = {}): Promise
   }
 }
 
-module.exports = { updateEvent, getEvents, getDocument };
+module.exports = { updateEvent, getEvents, getDocument, createUser };
