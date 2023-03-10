@@ -8,6 +8,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const mongo = require("./mongo");
+const { ObjectId } = require("mongodb");
 
 const app = express();
 const PORT = 3001;
@@ -44,7 +45,7 @@ app.post(
 
 app.get("/api/eventInformation", async (req: Request<{ eventId: string }>, res: Response) => {
   const eventId: string = <string>req.query.eventId;
-  const event = await mongo.getDocument("events", { _id: eventId });
+  const event = await mongo.getDocument("events", { _id: new ObjectId(eventId) });
   res.json(event);
 });
 

@@ -167,7 +167,7 @@ function EditView({
       }
     };
     const endpoint =
-      eventId === ""
+      eventId === undefined
         ? `http://localhost:3001/api/createEvent`
         : `http://localhost:3001/api/editEvent`;
     fetch(endpoint, {
@@ -287,7 +287,7 @@ function EditView({
           disabled={!allInputsValid}
           title="Please fill in all the required fields"
           onClick={submitForm}>
-          {eventId === "" ? "Create" : "Apply"}
+          {eventId === undefined ? "Create" : "Apply"}
         </button>
       </form>
     </div>

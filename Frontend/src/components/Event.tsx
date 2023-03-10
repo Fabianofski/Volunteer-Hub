@@ -34,7 +34,7 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await addToDataBase(EventModel?.eventId, currentUID);
+    await addToDataBase(EventModel?._id, currentUID);
   };
 
   return (

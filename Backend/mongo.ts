@@ -1,6 +1,7 @@
 import { EventModel } from "./model/EventModel";
 import { EventFilter } from "./model/EventFilter";
 import { User } from "./model/User";
+import { ObjectId } from "mongodb";
 
 const { MongoClient } = require("mongodb");
 
@@ -12,9 +13,10 @@ async function updateEvent(event: EventModel, id: string | undefined = undefined
 
     const db = client.db("volunteer-hub");
     const collection = db.collection("events");
-    if (id !== undefined)
-      await collection.updateOne({ _id: id }, { $set: event }, { upsert: true });
-    else await collection.insertOne(event);
+    if (id !== undefined) {
+      event._id = new ObjectId(id);
+      await collection.updateOne({ _id: new ObjectId(id) }, { $set: event }, { upsert: true });
+    } else await collection.insertOne(event);
 
     await client.close();
   } catch (e) {
