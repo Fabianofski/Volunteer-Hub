@@ -37,6 +37,16 @@ button:disabled {
   grid-template-columns: repeat(2, 1fr);
 }
 
+@media (max-width: 600px) {
+  .signUpForm {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .signUpForm .col-span-2 {
+    grid-column: span 1;
+  }
+}
+
 input {
   font-family: "Lato", sans-serif;
   color: #525252;
