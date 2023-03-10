@@ -1,5 +1,5 @@
 export interface EventModel {
-  _id: string;
+  _id?: string;
   eventName: string;
   date: string;
   time: string;

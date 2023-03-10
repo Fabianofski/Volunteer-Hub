@@ -47,7 +47,7 @@ function EditEvent({ currentUID }: { currentUID: string }) {
                 <EditView
                   event={event}
                   setEvent={setEvent}
-                  eventId={eventId || ""}
+                  eventId={eventId}
                   currentUID={currentUID}
                 />
               ) : (
@@ -84,7 +84,7 @@ function EditView({
 }: {
   event: EventModel;
   setEvent: React.Dispatch<EventModel>;
-  eventId: string;
+  eventId: string | undefined;
   currentUID: string;
 }) {
   const [eventName, setEventName] = useState<string>(event.eventName);
