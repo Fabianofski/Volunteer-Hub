@@ -8,7 +8,7 @@ import { defaultMarkdown } from "./defaultMarkdown";
 const express = require("express");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
-// const mysql = require("./mysql");
+const mongo = require("./mongo");
 
 const app = express();
 const PORT = 3001;
@@ -65,13 +65,8 @@ app.get("/api/eventInformation", async (req: Request<{ eventId: string }>, res: 
 });
 
 app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Response) => {
-  console.log(req.body);
   const eventFilters = req.body as EventFilter;
-  const events: EventModel[] = [];
-  const amount: number = Number(eventFilters?.amount || 6);
-  for (let i = 0; i < amount; i++) {
-    events.push(dummyEvent);
-  }
+  const events = await mongo.getEvents(eventFilters);
   res.json(events);
 });
 
@@ -84,7 +79,7 @@ app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) =
 app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) => {
   console.log("create");
   const event: EventModel = req.body as EventModel;
-  console.log(event);
+  await mongo.createEvent(event);
   res.send({ status: "Success" });
 });
 

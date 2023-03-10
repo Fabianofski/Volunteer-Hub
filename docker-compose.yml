@@ -2,15 +2,16 @@ version: '3.8'
 
 services:
 
-  mssql:
-    image: mysql
+  mongodb:
+    image: mongo:latest
     restart: unless-stopped
-    env_file: .env
-    environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD}
     ports:
-      - '3306:3306'
+      - '27017:27017'
+    env_file: .env
+    command: [--auth]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
 
   api:
     build:
@@ -23,9 +24,9 @@ services:
     ports:
       - "3001:3001"
     depends_on:
-      - mssql
+      - mongodb
     environment:
-      SQL_HOST: "mssql"
+      MONGO_HOST: "mongodb"
       NODE_ENV: "PRODUCTION"
 
   client:
