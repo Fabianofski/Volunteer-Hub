@@ -10,6 +10,7 @@ import MarkdownEditor from "@uiw/react-markdown-editor";
 import { commands } from "./MarkdownCommands";
 import { defaultEvent } from "./defaultEvent";
 import Event from "../Event";
+import { uploadToStorage } from "../../firebase";
 
 function EditEvent({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
@@ -87,6 +88,7 @@ function EditView({
   eventId: string | undefined;
   currentUID: string;
 }) {
+  const [banner, _setBanner] = useState<string>(event.banner);
   const [eventName, setEventName] = useState<string>(event.eventName);
   const [organizer, setOrganizer] = useState<string>(event.alias);
   const [date, setDate] = useState<string>(event.date);
@@ -98,6 +100,14 @@ function EditView({
   const [postalCode, setPostalCode] = useState<number>(event.location.postalCode);
   const [town, setTown] = useState<string>(event.location.town);
   const [description, setDescription] = useState<string>(event.about);
+
+  const setBanner = (file: File) => {
+    console.log(file);
+    uploadToStorage(`${currentUID}`, file, "image").then((url) => {
+      console.log(url);
+      _setBanner(url);
+    });
+  };
 
   let inputValidation = new InputValidation();
   const [allInputsValid, setAllInputsValid] = useState(false);
@@ -114,7 +124,7 @@ function EditView({
       alias: organizer,
       time: time,
       about: description,
-      banner: "",
+      banner: banner,
       date: date,
       eventName: eventName,
       location: {
@@ -131,6 +141,7 @@ function EditView({
   }, [
     eventName,
     organizer,
+    banner,
     date,
     time,
     minParticipantNumber,
@@ -144,28 +155,7 @@ function EditView({
 
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
-    const event: EventModel = {
-      maxParticipants: maxParticipantNumber,
-      minParticipants: minParticipantNumber,
-      currentParticipants: 0,
-      alias: organizer,
-      time: time,
-      about: description,
-      banner: "",
-      date: date,
-      _id: eventId,
-      eventName: eventName,
-      location: {
-        street: street,
-        houseNumber: houseNumber,
-        postalCode: postalCode,
-        town: town
-      },
-      organizer: {
-        uid: currentUID,
-        name: ""
-      }
-    };
+    console.log(event);
     const endpoint =
       eventId === undefined
         ? `http://localhost:3001/api/createEvent`
@@ -188,6 +178,23 @@ function EditView({
       <form>
         <h2 style={{ textAlign: "left" }}>Allgemein</h2>
         <div className={"inputGrid"}>
+          <div className={"col-span-max"}>
+            <label className="title">{"Banner"}</label>
+            <div className={`inputField valid`}>
+              <input
+                type={"file"}
+                defaultValue={banner}
+                onChange={(e) => {
+                  if (e.target.files) setBanner(e.target.files[0]);
+                }}
+                required
+                placeholder={"Banner"}
+                title={"Banner"}
+                accept={"image/*"}
+              />
+            </div>
+          </div>
+
           <InputField
             value={eventName}
             setValue={setEventName}

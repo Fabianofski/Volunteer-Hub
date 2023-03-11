@@ -11,6 +11,7 @@ type Props = {
   isInputValid: Function;
   showInfo?: boolean;
   className?: string;
+  accept?: string;
 };
 
 function InputField({
@@ -21,12 +22,13 @@ function InputField({
   placeholder,
   isInputValid,
   showInfo,
-  className
+  className,
+  accept
 }: Props) {
   const [info, setInfo] = useState<string[]>([]);
   const [validState, setValidState] = useState("unset");
 
-  const valueChanged = (input: string) => {
+  const valueChanged = (input: any) => {
     if (input === undefined) return;
     const validation: Validation = isInputValid(input);
     setValue(input);
@@ -47,6 +49,7 @@ function InputField({
           required
           placeholder={placeholder}
           title={placeholder}
+          accept={accept || ""}
         />
         {showInfo ? (
           <>
