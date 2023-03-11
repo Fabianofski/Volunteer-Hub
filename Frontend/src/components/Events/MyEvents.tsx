@@ -27,7 +27,7 @@ function MyEvents() {
       <div className={"myEvents"}>
         {events.map((event) => {
           return (
-            <a href={`/edit/${event.eventId}`}>
+            <a href={`/edit/${event._id}`}>
               <EventCard event={event} />
             </a>
           );
