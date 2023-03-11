@@ -1,11 +1,13 @@
 .main-container {
   /* background-color: aqua; */
-  height: 80vh;
-  width: 110vh;
+  height: 600px;
+  width: 600px;
   display: flex;
 
   justify-content: space-between;
   gap: 1%;
+
+  justify-self: center;
 }
 
 .main-container div {
@@ -14,6 +16,8 @@
   width: 33.33%;
   transition: all 0.2s;
   flex-shrink: 1;
+  box-shadow: 3px 3px 8px #00000078;
+  border-radius:15px;
 }
 
 .main-container div:hover {
@@ -26,7 +30,7 @@
   width: 100%;
   height: 100%;
 
-  border-radius: 20px;
+  border-radius: 15px;
   object-fit: cover;
   transition: all 0.2s;
 }
