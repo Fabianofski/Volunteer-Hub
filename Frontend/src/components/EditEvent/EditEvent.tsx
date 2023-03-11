@@ -88,7 +88,7 @@ function EditView({
   eventId: string | undefined;
   currentUID: string;
 }) {
-  const [banner, _setBanner] = useState<string>(event.banner);
+  const [banner, _setBanner] = useState<string>();
   const [eventName, setEventName] = useState<string>(event.eventName);
   const [organizer, setOrganizer] = useState<string>(event.alias);
   const [date, setDate] = useState<string>(event.date);
@@ -124,7 +124,7 @@ function EditView({
       alias: organizer,
       time: time,
       about: description,
-      banner: banner,
+      banner: banner || "",
       date: date,
       eventName: eventName,
       location: {
