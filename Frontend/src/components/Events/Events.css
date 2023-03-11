@@ -7,6 +7,12 @@
   margin-bottom: 2rem;
 }
 
+@media (max-width: 1300px) {
+  .events {
+    grid-template-columns: 1fr;
+  }
+}
+
 .events a {
   text-decoration: none;
 }

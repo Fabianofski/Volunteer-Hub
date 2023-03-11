@@ -4,12 +4,8 @@ import "./EventCard.css";
 
 function EventCard({ event }: { event: EventModel }) {
   return (
-    <div className={"event"} style={{ position: "relative" }}>
-      <img
-        src={event.banner}
-        alt={"Banner"}
-        style={{ position: "absolute", left: 0, bottom: 0, height: "100%", width: "100%" }}
-      />
+    <div className={"event"}>
+      <img src={event.banner} alt={"Banner"} />
       <div className={"backdrop"}></div>
       <div className={"content"}>
         <h2> {event.eventName} </h2>
