@@ -1,12 +1,54 @@
-.myEvents {
+.myEventsMain {
   display: flex;
+  flex-direction: column;
+  /* grid-template-columns: 1fr; */
+  color: var(--text-color);
+}
+.myEvents {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
   gap: 1rem;
-
-  overflow-x: scroll;
-
-  width: 95vw;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  /* overflow-x: scroll; */
+  align-items: center;
+  justify-items: center;
+  width: auto;
 }
 
 .myEvents a {
   text-decoration: none;
+}
+
+.createBtn {
+  box-shadow: 1px 1px 2px #00000078;
+  margin: 10px 0px 10px 0px;
+
+  width: 145px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  color: white;
+  background-color: var(--text-color);
+  border-radius: 5px;
+
+  text-align: center;
+  text-decoration: none;
+
+  align-self: center;
+}
+
+@media (max-width: 2000px) {
+  .myEvents {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media (max-width: 1330px) {
+  .myEvents {
+    grid-template-columns: auto;
+  }
 }

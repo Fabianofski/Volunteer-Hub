@@ -18,14 +18,15 @@ function MyEvents() {
   }, []);
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div style={{ minHeight: "100vh" }} className="myEventsMain">
       <h1>My Events</h1>
+      <h3>Manage your current Events.</h3>
 
-      <a href={"/create"} style={{ margin: "1rem" }}>
-        <h2>Create new Event</h2>
+      <a href={"/create"} className="createBtn">
+        <div>Create new Event</div>
       </a>
 
-      <h2>Edit Events</h2>
+      <h2 style={{ textAlign: "left" }}>Edit your Events</h2>
       <div className={"myEvents"}>
         {events.map((event) => {
           return (
