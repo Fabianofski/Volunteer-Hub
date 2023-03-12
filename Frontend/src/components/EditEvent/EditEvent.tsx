@@ -92,7 +92,7 @@ function EditView({
   eventId: string | undefined;
   currentUID: string;
 }) {
-  const [banner, _setBanner] = useState<string>();
+  const [_banner, _setBanner] = useState<string>(event.banner);
   const [eventName, setEventName] = useState<string>(event.eventName);
   const [organizer, setOrganizer] = useState<string>(event.alias);
   const [date, setDate] = useState<string>(event.date);
@@ -128,7 +128,7 @@ function EditView({
       alias: organizer,
       time: time,
       about: description,
-      banner: banner || "",
+      banner: _banner || "",
       date: date,
       eventName: eventName,
       location: {
@@ -145,7 +145,7 @@ function EditView({
   }, [
     eventName,
     organizer,
-    banner,
+    _banner,
     date,
     time,
     minParticipantNumber,
@@ -184,20 +184,27 @@ function EditView({
         <h2 style={{ textAlign: "left" }}>Allgemein</h2>
         <div className={"inputGrid"}>
           <div className={"col-span-max"}>
-            <label className="title">{"Banner"}</label>
-            <div className={`inputField valid`}>
-              <input
-                type={"file"}
-                defaultValue={banner}
-                onChange={(e) => {
-                  if (e.target.files) setBanner(e.target.files[0]);
-                }}
-                required
-                placeholder={"Banner"}
-                title={"Banner"}
-                accept={"image/*"}
-              />
-            </div>
+            <img
+              src={_banner}
+              alt={"EventBanner"}
+              style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+            />
+            <input
+              type={"file"}
+              id={"bannerInput"}
+              onChange={(e) => {
+                if (e.target.files) setBanner(e.target.files[0]);
+              }}
+              accept={"image/*"}
+              style={{ display: "none" }}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("bannerInput")?.click();
+              }}>
+              Banner austauschen
+            </button>
           </div>
 
           <InputField
