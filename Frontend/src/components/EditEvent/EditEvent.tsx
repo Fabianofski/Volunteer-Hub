@@ -174,6 +174,7 @@ function EditView({
       .then((response) => response.json())
       .then((result) => {
         console.log("Success:", result);
+        alert(result.status);
       });
   };
 
