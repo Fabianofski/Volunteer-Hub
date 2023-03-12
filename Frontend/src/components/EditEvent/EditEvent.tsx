@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
 import "./EditEvent.css";
 import "../Authentication/InputField.css";
@@ -18,15 +18,19 @@ function EditEvent({ currentUID }: { currentUID: string }) {
   const [mode, setMode] = useState("edit");
   const [event, setEvent] = useState<EventModel>(defaultEvent);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
+    document.title = `Create - Volunteer-Hub`;
     if (eventId === undefined) setDataLoaded(true);
     else
       fetch(`/api/eventInformation?eventId=${eventId}&userId=${currentUID}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          if (data === null) navigate("/404");
           setEvent(data);
           setDataLoaded(true);
+          document.title = `Edit: ${data.eventName} - Volunteer-Hub`;
         });
   }, [eventId, setDataLoaded]);
 

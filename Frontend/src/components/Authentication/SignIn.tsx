@@ -8,6 +8,8 @@ import "./SignIn.css";
 import { errorCodes } from "./ErrorCodes";
 
 function SignIn() {
+  document.title = "Login - Volunteer-Hub";
+
   const navigate = useNavigate();
   if (auth.currentUser !== null) navigate("/");
 

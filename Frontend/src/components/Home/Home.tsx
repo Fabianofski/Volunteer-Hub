@@ -5,8 +5,10 @@ import "./ImageSection";
 import ImageSection from "./ImageSection";
 
 function Home() {
+  document.title = `Home - Volunteer-Hub`;
+
   return (
-    <div className="layout">      
+    <div className="layout">
       {/* <ImageSection /> */}
       <div className="section1">
         <div className="hero">
@@ -19,13 +21,24 @@ function Home() {
           </div>
           <img src="/assets/hero_section_image.svg"></img>
         </div>
-      </div>       
+      </div>
       <div className="section2">
         <div className="text">
           <h2>Giving back never goes out of style!</h2>
-          <p>Together we have already achieved multiple goals that wouldn't have been possible without us! We are doing our best to connect people with other people or organizations to move something together as a community. <br /> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. <br /> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-        </div>        
-        <ImageSection/>
+          <p>
+            Together we have already achieved multiple goals that wouldn't have been possible
+            without us! We are doing our best to connect people with other people or organizations
+            to move something together as a community. <br /> Lorem ipsum dolor sit amet, consetetur
+            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+            aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+            rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+            amet. <br /> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+            eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+            takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+        <ImageSection />
       </div>
       <div className="section3"></div>
     </div>

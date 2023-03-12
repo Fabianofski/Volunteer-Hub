@@ -1,6 +1,8 @@
 import React from "react";
 
 function About() {
+  document.title = `About - Volunteer-Hub`;
+
   return (
     <div style={{ maxWidth: "60rem", width: "95vw", height: "100vh", marginTop: "2rem" }}>
       <h1>Willkommen bei VolunteerHub!</h1>

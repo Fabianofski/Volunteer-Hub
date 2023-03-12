@@ -20,6 +20,7 @@ function Profile() {
     .then((response) => response.json())
     .then((data) => {
       setProfileData(data);
+      document.title = `${data.firstname} - Volunteer-Hub`;
     });
 
   return (

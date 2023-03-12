@@ -4,6 +4,8 @@ import "./Events.css";
 import EventCard from "./EventCard";
 
 function Events() {
+  document.title = `Events - Volunteer-Hub`;
+
   const [events, setEvents] = useState<EventModel[]>([]);
 
   useEffect(() => {

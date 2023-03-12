@@ -38,6 +38,8 @@ async function createUser(
 }
 
 function SignUp() {
+  document.title = "Sign Up - Volunteer-Hub";
+
   const navigate = useNavigate();
   if (auth.currentUser !== null) navigate("/");
   let inputValidation: InputValidation = new InputValidation();

@@ -31,6 +31,7 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
           console.log(data);
           if (data === null) navigate("/404");
           setEventData(data);
+          document.title = `${data.title} - Volunteer-Hub`;
         });
   }, [eventId]);
 
