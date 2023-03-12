@@ -165,7 +165,7 @@ function EditView({
         ? `http://localhost:3001/api/createEvent`
         : `http://localhost:3001/api/editEvent`;
     fetch(endpoint, {
-      method: eventId === "" ? "POST" : "PUT",
+      method: eventId === undefined ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json"
       },

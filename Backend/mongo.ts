@@ -7,7 +7,7 @@ const { MongoClient } = require("mongodb");
 
 const uri = `mongodb://${process.env.MONGO_AUTH}@${process.env.MONGO_HOST}`;
 
-async function updateEvent(event: EventModel, id: string | undefined = undefined) {
+async function updateEvent(event: EventModel, id: string | ObjectId | undefined = undefined) {
   try {
     const client = new MongoClient(uri);
 

@@ -21,16 +21,26 @@ app.get("/api/ping", async (req: Request, res: Response) => {
 });
 
 app.get("/api/profileInformation", async (req: Request<{ uid: string }>, res: Response) => {
-  const uid = req.query.uid;
-  const user = await mongo.getDocument("users", { _id: uid });
-  res.json(user);
+  try {
+    const uid = req.query.uid;
+    const user = await mongo.getDocument("users", { _id: uid });
+    res.json(user);
+  } catch (e: any) {
+    console.log(e);
+    res.json(null);
+  }
 });
 
 app.post("/api/signUp/", jsonParser, async (req: Request<User>, res: Response) => {
-  const user: User = req.body as User;
-  console.log("Create new User!");
-  await mongo.createUser(user);
-  res.send({ status: "Success" });
+  try {
+    const user: User = req.body as User;
+    console.log("Create new User!");
+    await mongo.createUser(user);
+    res.send({ status: "Success" });
+  } catch (e: any) {
+    console.log(e);
+    res.send({ status: "Failed" });
+  }
 });
 
 app.post(
@@ -38,8 +48,16 @@ app.post(
   async (req: Request<{ userId: string; eventId: string }>, res: Response) => {
     const eventId: string = <string>req.query.eventId;
     const userId: string = <string>req.query.userId;
-    console.log(`User: ${userId} applied for Event: ${eventId}`);
-    res.send({ response: `User: ${userId} applied for Event: ${eventId}` });
+    try {
+      console.log(`User: ${userId} applied for Event: ${eventId}`);
+      res.send({ status: "Success", response: `User: ${userId} applied for Event: ${eventId}` });
+    } catch (e: any) {
+      console.log(e);
+      res.send({
+        status: "Failed",
+        response: `User: ${userId} couldn't apply for Event: ${eventId}`
+      });
+    }
   }
 );
 
@@ -55,22 +73,37 @@ app.get("/api/eventInformation", async (req: Request<{ eventId: string }>, res: 
 });
 
 app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Response) => {
-  const eventFilters = req.body as EventFilter;
-  const events = await mongo.getEvents(eventFilters);
-  res.json(events);
+  try {
+    const eventFilters = req.body as EventFilter;
+    const events = await mongo.getEvents(eventFilters);
+    res.json(events);
+  } catch (e: any) {
+    console.log(e);
+    res.json([]);
+  }
 });
 
 app.post("/api/createEvent/", jsonParser, async (req: Request, res: Response) => {
-  console.log("create");
-  const event: EventModel = req.body as EventModel;
-  await mongo.updateEvent(event, "456");
-  res.send({ status: "Success" });
+  try {
+    console.log("create");
+    const event: EventModel = req.body as EventModel;
+    await mongo.updateEvent(event);
+    res.send({ status: "Success" });
+  } catch (e: any) {
+    console.log(e);
+    res.send({ status: "Failed" });
+  }
 });
 
 app.put("/api/editEvent/", jsonParser, async (req: Request, res: Response) => {
-  const event: EventModel = req.body as EventModel;
-  await mongo.updateEvent(event, event._id);
-  res.send({ status: "Success" });
+  try {
+    const event: EventModel = req.body as EventModel;
+    await mongo.updateEvent(event, event._id);
+    res.send({ status: "Success" });
+  } catch (e: any) {
+    console.log(e);
+    res.send({ status: "Failed" });
+  }
 });
 
 app.listen(PORT, () => console.log("Listening ..."));

@@ -31,7 +31,7 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
           console.log(data);
           if (data === null) navigate("/404");
           setEventData(data);
-          document.title = `${data.title} - Volunteer-Hub`;
+          document.title = `${data.eventName} - Volunteer-Hub`;
         });
   }, [eventId]);
 
@@ -70,9 +70,7 @@ function EventPage({ eventData, currentUID }: { eventData?: EventModel; currentU
               <h1>{eventData?.eventName || "Eventname"}</h1>
               <h2>
                 Organisator:{" "}
-                <a href={`/profile/${eventData?.organizer.uid}`}>
-                  {eventData?.organizer.name || "Name"}
-                </a>
+                <a href={`/profile/${eventData?.organizer.uid}`}>{eventData?.alias || "Name"}</a>
               </h2>
             </div>
             <div className="eventDescriptionRight">
