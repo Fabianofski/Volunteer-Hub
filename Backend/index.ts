@@ -44,9 +44,14 @@ app.post(
 );
 
 app.get("/api/eventInformation", async (req: Request<{ eventId: string }>, res: Response) => {
-  const eventId: string = <string>req.query.eventId;
-  const event = await mongo.getDocument("events", { _id: new ObjectId(eventId) });
-  res.json(event);
+  try {
+    const eventId: string = <string>req.query.eventId;
+    const event = await mongo.getDocument("events", { _id: new ObjectId(eventId) });
+    res.json(event);
+  } catch (e: any) {
+    console.log(e);
+    res.json(null);
+  }
 });
 
 app.get("/api/eventList/", jsonParser, async (req: Request<EventFilter>, res: Response) => {

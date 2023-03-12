@@ -13,6 +13,7 @@ import EditEvent from "./components/EditEvent/EditEvent";
 import Events from "./components/Events/Events";
 import About from "./components/About";
 import MyEvents from "./components/Events/MyEvents";
+import FourZeroFour from "./components/404";
 
 /* Test-Account
     dummy@d.de
@@ -44,6 +45,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/about" element={<About />} />
             <Route path="/myEvents" element={<MyEvents />} />
+            <Route path="/404" element={<FourZeroFour />} />
           </Routes>
         </div>
         {/*<Footer />*/}
