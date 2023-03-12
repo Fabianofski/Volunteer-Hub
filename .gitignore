@@ -4,4 +4,6 @@ Frontend/src/fbConfig.json
 .idea
 Frontend/dist
 Frontend/.firebase/hosting.ZGlzdA.cache
+
+.env
 slogans.txt

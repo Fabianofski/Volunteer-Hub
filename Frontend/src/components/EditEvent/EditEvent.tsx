@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
 import "./EditEvent.css";
 import "../Authentication/InputField.css";
@@ -10,6 +10,7 @@ import MarkdownEditor from "@uiw/react-markdown-editor";
 import { commands } from "./MarkdownCommands";
 import { defaultEvent } from "./defaultEvent";
 import Event from "../Event";
+import { uploadToStorage } from "../../firebase";
 
 function EditEvent({ currentUID }: { currentUID: string }) {
   const { eventId } = useParams();
@@ -17,15 +18,19 @@ function EditEvent({ currentUID }: { currentUID: string }) {
   const [mode, setMode] = useState("edit");
   const [event, setEvent] = useState<EventModel>(defaultEvent);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
+    document.title = `Create - Volunteer-Hub`;
     if (eventId === undefined) setDataLoaded(true);
     else
       fetch(`/api/eventInformation?eventId=${eventId}&userId=${currentUID}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          if (data === null) navigate("/404");
           setEvent(data);
           setDataLoaded(true);
+          document.title = `Edit: ${data.eventName} - Volunteer-Hub`;
         });
   }, [eventId, setDataLoaded]);
 
@@ -47,7 +52,7 @@ function EditEvent({ currentUID }: { currentUID: string }) {
                 <EditView
                   event={event}
                   setEvent={setEvent}
-                  eventId={eventId || ""}
+                  eventId={eventId}
                   currentUID={currentUID}
                 />
               ) : (
@@ -84,9 +89,10 @@ function EditView({
 }: {
   event: EventModel;
   setEvent: React.Dispatch<EventModel>;
-  eventId: string;
+  eventId: string | undefined;
   currentUID: string;
 }) {
+  const [_banner, _setBanner] = useState<string>(event.banner);
   const [eventName, setEventName] = useState<string>(event.eventName);
   const [organizer, setOrganizer] = useState<string>(event.alias);
   const [date, setDate] = useState<string>(event.date);
@@ -99,6 +105,14 @@ function EditView({
   const [town, setTown] = useState<string>(event.location.town);
   const [description, setDescription] = useState<string>(event.about);
 
+  const setBanner = (file: File) => {
+    console.log(file);
+    uploadToStorage(`${currentUID}`, file, "image").then((url) => {
+      console.log(url);
+      _setBanner(url);
+    });
+  };
+
   let inputValidation = new InputValidation();
   const [allInputsValid, setAllInputsValid] = useState(false);
   useEffect(() => {
@@ -107,15 +121,15 @@ function EditView({
     const valid = invalidForm === null && unsetForm === null;
     setAllInputsValid(valid);
     setEvent({
+      _id: eventId,
       maxParticipants: maxParticipantNumber,
       minParticipants: minParticipantNumber,
       currentParticipants: 0,
       alias: organizer,
       time: time,
       about: description,
-      banner: "",
+      banner: _banner || "",
       date: date,
-      eventId: eventId,
       eventName: eventName,
       location: {
         street: street,
@@ -131,6 +145,7 @@ function EditView({
   }, [
     eventName,
     organizer,
+    _banner,
     date,
     time,
     minParticipantNumber,
@@ -144,34 +159,13 @@ function EditView({
 
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
-    const event: EventModel = {
-      maxParticipants: maxParticipantNumber,
-      minParticipants: minParticipantNumber,
-      currentParticipants: 0,
-      alias: organizer,
-      time: time,
-      about: description,
-      banner: "",
-      date: date,
-      eventId: eventId,
-      eventName: eventName,
-      location: {
-        street: street,
-        houseNumber: houseNumber,
-        postalCode: postalCode,
-        town: town
-      },
-      organizer: {
-        uid: currentUID,
-        name: ""
-      }
-    };
+    console.log(event);
     const endpoint =
-      eventId === ""
+      eventId === undefined
         ? `http://localhost:3001/api/createEvent`
         : `http://localhost:3001/api/editEvent`;
     fetch(endpoint, {
-      method: eventId === "" ? "POST" : "PUT",
+      method: eventId === undefined ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -180,6 +174,7 @@ function EditView({
       .then((response) => response.json())
       .then((result) => {
         console.log("Success:", result);
+        alert(result.status);
       });
   };
 
@@ -188,6 +183,30 @@ function EditView({
       <form>
         <h2 style={{ textAlign: "left" }}>Allgemein</h2>
         <div className={"inputGrid"}>
+          <div className={"col-span-max"}>
+            <img
+              src={_banner}
+              alt={"EventBanner"}
+              style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+            />
+            <input
+              type={"file"}
+              id={"bannerInput"}
+              onChange={(e) => {
+                if (e.target.files) setBanner(e.target.files[0]);
+              }}
+              accept={"image/*"}
+              style={{ display: "none" }}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("bannerInput")?.click();
+              }}>
+              Banner austauschen
+            </button>
+          </div>
+
           <InputField
             value={eventName}
             setValue={setEventName}
@@ -287,7 +306,7 @@ function EditView({
           disabled={!allInputsValid}
           title="Please fill in all the required fields"
           onClick={submitForm}>
-          {eventId === "" ? "Create" : "Apply"}
+          {eventId === undefined ? "Create" : "Apply"}
         </button>
       </form>
     </div>
@@ -295,6 +314,7 @@ function EditView({
 }
 
 function addConfirmationBeforeReload(currentUID: string) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     // Confirmation before leaving site to prevent accidental data loss
     const unloadCallback = (event: any) => {

@@ -7,6 +7,12 @@
   margin-bottom: 2rem;
 }
 
+@media (max-width: 1300px) {
+  .events {
+    grid-template-columns: 1fr;
+  }
+}
+
 .events a {
   text-decoration: none;
 }
@@ -14,6 +20,7 @@
 .eventsPage {
   width: auto;
   height: 100%;
+  align-self: flex-start;
 }
 
 .eventsPage h3, .eventsPage h1 {

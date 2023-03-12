@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { InputValidation, Validation } from "./InputValidation";
 import { errorCodes } from "./ErrorCodes";
+import { User } from "../../model/User";
 
 async function createUser(
   email: string,
@@ -17,13 +18,13 @@ async function createUser(
   await createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
     const user = userCredential.user;
     console.log(user);
-    const data = {
-      uid: user.uid,
+    const data: User = {
+      _id: user.uid,
       email: email,
       firstname: firstname,
       lastname: lastname,
       telephone: telephone,
-      dateOfBirth: dateOfBirth
+      dateOfBirth: dateOfBirth?.toString() || ""
     };
 
     await fetch("api/signUp", {
@@ -37,6 +38,8 @@ async function createUser(
 }
 
 function SignUp() {
+  document.title = "Sign Up - Volunteer-Hub";
+
   const navigate = useNavigate();
   if (auth.currentUser !== null) navigate("/");
   let inputValidation: InputValidation = new InputValidation();

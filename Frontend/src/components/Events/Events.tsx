@@ -4,6 +4,8 @@ import "./Events.css";
 import EventCard from "./EventCard";
 
 function Events() {
+  document.title = `Events - Volunteer-Hub`;
+
   const [events, setEvents] = useState<EventModel[]>([]);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function Events() {
       <div className={"events"}>
         {events.map((event) => {
           return (
-            <a href={`/event/${event.eventId}`}>
+            <a href={`/event/${event._id}`}>
               <EventCard event={event} />
             </a>
           );

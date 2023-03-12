@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    env_file: .env
+    command: [--auth]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./Backend/"
+    volumes:
+      - /app/node_modules
+      - ./Backend:/app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_HOST: "mongodb"
+      NODE_ENV: "PRODUCTION"
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./Frontend
+    volumes:
+      - /app/node_modules
+      - ./Frontend:/app
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "3000:3000"

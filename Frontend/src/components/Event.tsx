@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { auth } from "../firebase";
-import { Route, useParams } from "react-router-dom";
+import { Route, useNavigate, useParams } from "react-router-dom";
 import "../App.css";
 import "../Event.css";
 import { EventModel } from "../model/EventModel";
@@ -19,7 +19,8 @@ async function addToDataBase(thisEventId: string | undefined, userId: string | u
 
 function Event({ currentUID, event }: { currentUID: string; event?: EventModel }) {
   const { eventId } = useParams();
-  const [EventModel, setEventData] = useState<EventModel>();
+  const [eventData, setEventData] = useState<EventModel>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (event) setEventData(event);
@@ -28,22 +29,36 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          if (data === null) navigate("/404");
           setEventData(data);
+          document.title = `${data.eventName} - Volunteer-Hub`;
         });
   }, [eventId]);
 
+  return (
+    <div className="seite">
+      {eventData ? (
+        <EventPage eventData={eventData} currentUID={currentUID} />
+      ) : (
+        <h2>Loading...</h2>
+      )}
+    </div>
+  );
+}
+
+function EventPage({ eventData, currentUID }: { eventData?: EventModel; currentUID: string }) {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await addToDataBase(EventModel?.eventId, currentUID);
+    await addToDataBase(eventData?._id, currentUID);
   };
 
   return (
-    <div className="seite">
+    <>
       <div className="eventpage">
         <div className="eventBanner">
           <img
             src={
-              EventModel?.banner ||
+              eventData?.banner ||
               "https://majers-weinscheuer.de/wp-content/uploads/2021/01/Mathaisemarkt-at-home-majers-weinscheuer-schriesheim.jpg"
             }
             alt="banner"
@@ -52,38 +67,34 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
         <div className={"eventContent"}>
           <div className="eventDescription">
             <div className="eventDescriptionLeft">
-              <h1>{EventModel?.eventName || "Eventname"}</h1>
+              <h1>{eventData?.eventName || "Eventname"}</h1>
               <h2>
                 Organisator:{" "}
-                <a href={`/profile/${EventModel?.organizer.uid}`}>
-                  {EventModel?.organizer.name || "Name"}
-                </a>
+                <a href={`/profile/${eventData?.organizer.uid}`}>{eventData?.alias || "Name"}</a>
               </h2>
             </div>
             <div className="eventDescriptionRight">
               <div></div>
               <h2>
-                {new Date(EventModel?.date || "").toLocaleDateString("de-DE")},{" "}
-                {EventModel?.time || "08:00"} Uhr
+                {new Date(eventData?.date || "").toLocaleDateString("de-DE")},{" "}
+                {eventData?.time || "08:00"} Uhr
               </h2>
               <h2>
-                {EventModel?.location.street || "Musterstr."}{" "}
-                {EventModel?.location.houseNumber || 42}
+                {eventData?.location.street || "Musterstr."} {eventData?.location.houseNumber || 42}
               </h2>
               <h2>
-                {EventModel?.location.postalCode || 45723} {EventModel?.location.town || "Berlin"}
+                {eventData?.location.postalCode || 45723} {eventData?.location.town || "Berlin"}
               </h2>
             </div>
           </div>
           <MarkdownEditor.Markdown
-            source={EventModel?.about || "Beschreibung"}
+            source={eventData?.about || "Beschreibung"}
             skipHtml={true}
             style={{ textAlign: "left", backgroundColor: "#5e5e5e" }}
           />
           <div className="eventDescription">
             <h2>
-              Freie Plätze: {EventModel?.currentParticipants || 0}/
-              {EventModel?.maxParticipants || 99}
+              Freie Plätze: {eventData?.currentParticipants || 0}/{eventData?.maxParticipants || 99}
             </h2>
           </div>
         </div>
@@ -91,7 +102,7 @@ function Event({ currentUID, event }: { currentUID: string; event?: EventModel }
       <button className="participate" type="submit" onClick={onSubmit}>
         <h2>Teilnehmen</h2>
       </button>
-    </div>
+    </>
   );
 }
 

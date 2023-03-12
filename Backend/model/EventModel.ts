@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface EventModel {
-  eventId: string;
+  _id?: string | ObjectId;
   eventName: string;
   date: string;
   time: string;
