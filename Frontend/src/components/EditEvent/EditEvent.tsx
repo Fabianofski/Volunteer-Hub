@@ -160,10 +160,7 @@ function EditView({
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     console.log(event);
-    const endpoint =
-      eventId === undefined
-        ? `http://localhost:3001/api/createEvent`
-        : `http://localhost:3001/api/editEvent`;
+    const endpoint = eventId === undefined ? `/api/createEvent` : `/api/editEvent`;
     fetch(endpoint, {
       method: eventId === undefined ? "POST" : "PUT",
       headers: {
