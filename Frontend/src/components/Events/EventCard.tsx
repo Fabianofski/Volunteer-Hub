@@ -14,7 +14,7 @@ function EventCard({ event }: { event: EventModel }) {
           <p className={"date"}>{event.date}</p>
           <p className={"town"}>{event.location.town}</p>
         </div>
-        <p>{event.about}</p>
+        <p>{event.about.slice(0, 150)}</p>
       </div>
     </div>
   );
