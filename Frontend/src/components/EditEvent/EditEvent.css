@@ -11,6 +11,10 @@
   padding: 1rem;
 }
 
+.signInBtnHref {
+  text-decoration: none;
+}
+
 .viewMode {
   display: flex;
   gap: 1rem;

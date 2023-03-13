@@ -38,10 +38,10 @@ function EditEvent({ currentUID }: { currentUID: string }) {
     <div className={"editPage"}>
       {currentUID === "" ? (
         <>
-          <h2> Du musst angemeldet sein bevor du ein Event erstellen kannst </h2>
-          <a href="/login">
-            <img src="/SignIn.png" alt="SignIn" width="180" height="70" />
-          </a>
+          <h2>You have to be signed in to edit events.</h2>
+          <a className="signInBtnHref" href="/login">
+              <div className="signInBtn">Sign In</div>
+            </a>
         </>
       ) : (
         <>

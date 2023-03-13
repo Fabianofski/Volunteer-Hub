@@ -112,7 +112,7 @@
 .section2 {
   width: 100%;
   height: auto;
-  background-color: var(--text-color);
+  background-color: rgb(211, 211, 211);
 
   padding: 20px 0 20px 0;
   display: grid;
@@ -123,7 +123,6 @@
 }
 
 .section2 .text {
-  color: rgb(228, 228, 228);
   text-justify: start;
   text-align: start;
   padding-left: 20px;
@@ -143,7 +142,7 @@
 }
 
 .section2 .text p {
-  color: rgb(228, 228, 228);
+  color: var(--text-color);
   font-size: 1.2rem;
 }
 

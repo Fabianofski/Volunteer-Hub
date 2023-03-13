@@ -17,6 +17,7 @@
   text-align: left;
 
   box-sizing: border-box;
+  border-radius: 3px;
 }
 
 .event img {
@@ -30,6 +31,7 @@
 }
 
 .event .backdrop {
+  border-radius: 3px;
   position: absolute;
   top: 0;
   left: 0;
