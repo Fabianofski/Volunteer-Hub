@@ -15,7 +15,7 @@
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 .headings {
@@ -23,8 +23,9 @@
   flex-direction: column;
   padding-left: 1rem;
   justify-content: center;
-
+  align-items: center;
   margin-top: auto;
+  /* justify-self: center; */
 }
 
 .headings h1,
@@ -52,6 +53,7 @@
   font-size: 1.5rem;
   color: var(--text-color);
   margin-bottom: 30px;
+  align-self: flex-start;
 }
 
 
@@ -107,6 +109,9 @@
   width: 100%;
   height: 700px;
   /* background-color: rgb(128, 128, 128); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .section2 {
@@ -126,7 +131,7 @@
   text-justify: start;
   text-align: start;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 .section2 .text h2 {
@@ -151,7 +156,7 @@
 }
 
 .section3 {
-  height: 700px;
+  height: 100px;
 }
 
 @media (max-width: 1000px) {
@@ -174,5 +179,15 @@
     grid-row: 1;
     margin-bottom: 30px;
     width: min(600px, 75%)
+  }
+  .section2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1350px) {
+  .section2 {
+    width: 97%;
+    align-self: center;
   }
 }
