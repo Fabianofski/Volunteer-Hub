@@ -1,5 +1,4 @@
-export const defaultMarkdown = `# Eventname
-
+export const defaultMarkdown = `
 ## Allgemeine Informationen
 
 Lorem ipsum dolor sit amet

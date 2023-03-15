@@ -40,8 +40,8 @@ function EditEvent({ currentUID }: { currentUID: string }) {
         <>
           <h2>You have to be signed in to edit events.</h2>
           <a className="signInBtnHref" href="/login">
-              <div className="signInBtn">Sign In</div>
-            </a>
+            <div className="signInBtn">Sign In</div>
+          </a>
         </>
       ) : (
         <>
@@ -160,10 +160,7 @@ function EditView({
   const submitForm = (e: FormEvent) => {
     e.preventDefault();
     console.log(event);
-    const endpoint =
-      eventId === undefined
-        ? `http://localhost:3001/api/createEvent`
-        : `http://localhost:3001/api/editEvent`;
+    const endpoint = eventId === undefined ? `/api/createEvent` : `/api/editEvent`;
     fetch(endpoint, {
       method: eventId === undefined ? "POST" : "PUT",
       headers: {
@@ -299,6 +296,7 @@ function EditView({
             visible={true}
             toolbars={commands}
             onChange={(e: any) => setDescription(e as string)}
+            style={{ width: "95vw", maxWidth: "60rem" }}
           />
         </div>
         <button
