@@ -49,8 +49,11 @@
 }
 
 .event .content {
+  width: 100%;
+  max-height: 60%;
   position: relative;
   z-index: 1;
+  /* overflow-y: scroll; */
 }
 
 .event .content * {
@@ -58,13 +61,40 @@
   margin: 0;
 }
 
-.event .details {
-  display: flex;
-  justify-content: space-between;
+.event .content .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  height: 75px;
+  text-overflow: ellipsis;
+  white-space: break-spaces;
+  overflow: hidden;
+  
+}
 
+.event .content .details {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "name date"
+    "name town";
   width: 100%;
 }
 
-.event .details .organizer {
-  width: 70%;
+/* .event .content .details .organizer {  
+  text-align: end;
+} */
+
+.event .content .details .eventName {
+  grid-area: name;
+}
+
+.event .content .details .date { 
+  grid-area: date;
+}
+
+.event .content .details .town { 
+  grid-area: town;
+  font-weight: 900;
 }

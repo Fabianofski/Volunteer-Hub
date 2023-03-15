@@ -8,13 +8,13 @@ function EventCard({ event }: { event: EventModel }) {
       <img src={event.banner} alt={"Banner"} />
       <div className={"backdrop"}></div>
       <div className={"content"}>
-        <h2> {event.eventName} </h2>
         <div className={"details"}>
-          <p className={"organizer"}>{event.organizer.name}</p>
+          <h2 className={"eventName"}> {event.eventName} </h2>
+          {/* <p className={"organizer"}>{event.organizer.name}</p> */}
           <p className={"date"}>{event.date}</p>
           <p className={"town"}>{event.location.town}</p>
         </div>
-        <p>{event.about}</p>
+        <p className="description">{event.about}</p>
       </div>
     </div>
   );
