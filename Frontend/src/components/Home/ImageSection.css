@@ -1,12 +1,12 @@
 .main-container {
   /* background-color: aqua; */
-  height: 600px;
-  width: 600px;
+  height: min(500px, 100%);
+  width: calc(100% - 20px);
   display: flex;
 
   justify-content: space-between;
   gap: 1%;
-
+  margin-right: 20px;
   justify-self: center;
 }
 
@@ -33,6 +33,14 @@
   border-radius: 15px;
   object-fit: cover;
   transition: all 0.2s;
+}
+
+@media (max-width: 1000px) {
+  .main-container {
+    margin-right: 0px;
+    width: 95%;
+    height: 500px;
+  }
 }
 
 /* .main-container .image3 img {
