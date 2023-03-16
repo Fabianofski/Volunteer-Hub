@@ -90,7 +90,7 @@ function EventPage({ eventData, currentUID }: { eventData?: EventModel; currentU
           <MarkdownEditor.Markdown
             source={eventData?.about || "Beschreibung"}
             skipHtml={true}
-            style={{ textAlign: "left", backgroundColor: "#5e5e5e" }}
+            style={{ textAlign: "left", backgroundColor: "rgb(211, 211, 211)" }}
           />
           <div className="eventDescription">
             <h2>
